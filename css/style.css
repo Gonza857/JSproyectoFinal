@@ -1,0 +1,49 @@
+@charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+.navBarMod {
+  background-image: linear-gradient(to top, #93bfb7, #69aaaa);
+  border-bottom: 0.5px solid #000;
+}
+.navBarMod #añadirCurso,
+.navBarMod #eliminarCurso {
+  font-size: 1.5rem;
+}
+
+main .leftCol {
+  border: 0.5px solid #000;
+}
+main .leftCol p {
+  font-size: 1.2rem;
+}
+main .rightCol {
+  height: 585px;
+  border: 0.5px solid #000;
+}
+main .rightCol p {
+  font-size: 1.2rem;
+}
+
+.cajaCurso {
+  width: 100%;
+  color: #000;
+  font-family: "Montserrat";
+}
+
+#crearCurso {
+  display: none;
+}
+
+body {
+  background: #c1c1c1;
+}
+
+.footer {
+  background-image: linear-gradient(to left, #477373, #93bfb7);
+}
