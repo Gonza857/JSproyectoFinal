@@ -59,7 +59,11 @@ class Alumno {
 
 // FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
 const pushCursos = (añoValor, divisionValor, turnoValor) => {
+<<<<<<< HEAD
     localStorage.removeItem("cursos");
+=======
+    // localStorage.removeItem("cursos");
+>>>>>>> 92a034d44e66dcc1bb279dcae1b855c641451722
     // CONSTRUYE CURSO
     let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
     // PUSHEAMOS EL CURSO AL ARRAY DE TODOS LOS CURSOS
@@ -90,7 +94,11 @@ const cargarDeleteForm = () => {
 
 // FUNCION PARA CARGAR DATOS DEL LOCALSTORAGE
 const cargarDatos = () => {
+<<<<<<< HEAD
     cursosTotales = JSON.parse(localStorage.getItem("cursos"));
+=======
+    cursosTotales = JSON.parse(localStorage.getItem("cursos"))
+>>>>>>> 92a034d44e66dcc1bb279dcae1b855c641451722
     cursosTotales.forEach((el) => {
         cursoComp = el.infoFull;
         grado = document.createElement("p");
@@ -211,4 +219,8 @@ btnAgregar.onclick = (e) => {
 
 // localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 
+<<<<<<< HEAD
 // --------------------------------
+=======
+// --------------------------------
+>>>>>>> 92a034d44e66dcc1bb279dcae1b855c641451722
