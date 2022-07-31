@@ -1,12 +1,8 @@
 # Proyecto  -  Javascript CoderHouse
 
-## Objetivo
+## Pre Entrega Numero 2
 
-Este app web, tiene el fin de registrar cursos y alumnos en un establecimiento 
-
-## Comentarios
-
-- Cualquier consejo o crítica acerca del proyecto será bien recibido para la optimización del mismo.
+Se aplico localStorage a los cursos totales.
 
 # Autor
 * Gonzalo Ramos
