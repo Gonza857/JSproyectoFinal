@@ -12,7 +12,8 @@
   border-bottom: 0.5px solid #000;
 }
 .navBarMod #añadirCurso,
-.navBarMod #eliminarCurso {
+.navBarMod #eliminarCurso,
+.navBarMod #guardarCurso {
   font-size: 1.5rem;
 }
 
@@ -23,7 +24,7 @@ main .leftCol p {
   font-size: 1.2rem;
 }
 main .rightCol {
-  height: 585px;
+  height: 570px;
   border: 0.5px solid #000;
 }
 main .rightCol p {
@@ -42,6 +43,10 @@ main .rightCol p {
 
 body {
   background: #c1c1c1;
+}
+
+#deleteForm .holder1 {
+  border: 2px solid blue;
 }
 
 .footer {

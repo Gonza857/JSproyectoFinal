@@ -57,73 +57,89 @@ class Alumno {
 //     return resBus;
 // }
 
+// FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
 const pushCursos = (añoValor, divisionValor, turnoValor) => {
-    // MOSTRAMOS FORMULARIO
-    // CONSTRUCTOR
+    // localStorage.removeItem("cursos");
+    // CONSTRUYE CURSO
     let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
     // PUSHEAMOS EL CURSO AL ARRAY DE TODOS LOS CURSOS
     cursosTotales.push(cursoNew);
     cursosBox.innerHTML = " ";
     cursosTotales.forEach((el) => {
-        let cursoComp = el.infoFull;
-        let grado = document.createElement("p");
+        cursoComp = el.infoFull;
+        grado = document.createElement("p");
         grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
         grado.innerHTML = cursoComp;
         cursosBox.appendChild(grado);
     })
-    // DECLARO ELEMENTOS PARA EL FORMULARIO DE ELIMINACION
-    let borrarContainer = document.createElement("div");
-    borrarContainer.setAttribute("class", "unCurso row justify-content-around p-0 m-0 my-1 align-content-center")
-    // CREO EL DIV Y LO MANDO AL FORM
-    deleteForm.appendChild(borrarContainer);
-    // CREO EL P QUE VA DENTRO DEL DIV
-    let cursoPorEliminar = document.createElement("p");
-    cursoPorEliminar.setAttribute("class", "col-6 my-auto");
-    borrarContainer.appendChild(cursoPorEliminar);
-    // ACTUALIZO EL VALOR PARA EL P DENTRO DEL DIV
-    cursosTotales.forEach((el) => {
-        let cursoComp = el.info;
-        cursoPorEliminar.innerHTML = cursoComp;
-    })
-    // CREO EL BOTON DE ELIMINAR Y LO ENVIO AL DIV
-    borrar = document.createElement("button");
-    borrar.textContent = "Borrar";
-    borrar.setAttribute("class", "btn btnBorrar bg-danger col-4");
-    borrarContainer.appendChild(borrar);
+    localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
-const mostrarCreador = () => {
+// FUNCION QUE MUESTRA EL FORMULARIO PARA AGREGAR
+const cargarPushForm = () => {
+    crearCursoContainer.style.transition = "all 1s ease";
     crearCursoContainer.style.display = "block"
+    eliminarCursoContainer.style.display = "none";
 }
 
-let borrar;
-const cargarEnEliminar = () => {
+// FUNCION QUE ESCONDE EL FORMULARIO PARA AGREGAR Y MUESTRA EL DE ELIMINAR
+const cargarDeleteForm = () => {
     crearCursoContainer.style.display = "none";
     eliminarCursoContainer.style.display = "block";
-    borrar.onclick = (e) => {
-        e.preventDefault();
-    }
+}
+
+// FUNCION PARA CARGAR DATOS DEL LOCALSTORAGE
+const cargarDatos = () => {
+    cursosTotales = JSON.parse(localStorage.getItem("cursos"))
+    cursosTotales.forEach((el) => {
+        cursoComp = el.infoFull;
+        grado = document.createElement("p");
+        grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+        grado.innerHTML = cursoComp;
+        cursosBox.appendChild(grado);
+    })
 }
 
 // --------------------------------
 
 ///// ASIGNACION DE NODOS A VARIABLES /////
 
-let agregarCurso = document.getElementById("añadirCurso");
+// BOTONES DE NAVBAR
+let btnEliminarCursos = document.getElementById("eliminarCurso");
+let btnAgregarCursos = document.getElementById("añadirCurso");
+
+// DIV CONTAINER DE CURSOS AÑADIDOS Y DIV DE CURSOS
 let cursosBox = document.getElementById("cursosBox");
+// CONTAINER DE CURSOS AGREGADOS
+let existentes = document.getElementById("cursosBox");
+
+// FORMULARIO PARA AGREGAR
+// INPUTS
 let año = document.getElementById("año");
 let division = document.getElementById("division");
 let turno = document.getElementById("turno");
+// BOTON
 let btnAgregar = document.getElementById("btnAgregar");
-let btnEliminar = document.getElementById("btnEliminar");
-let btnMostrarAgregar = document.getElementById("btnMostrarAgregar");
-let btnEliminarCurso = document.getElementById("eliminarCurso");
-let deleteForm = document.getElementById("deleteForm");
-let formulario = document.getElementById("crearCurso");
+// CONTENEDOR DEL FORMLARIO
 let crearCursoContainer = document.getElementById("crearCursoContainer");
+// FORMULARIO
+let formulario = document.getElementById("crearCurso");
 crearCursoContainer.style.display = "none";
+
+// CONTENEDOR DE FORMULARIO PARA ELIMINAR
 let eliminarCursoContainer = document.getElementById("eliminarCursoContainer")
 eliminarCursoContainer.style.display = "none";
+// FORMULARIO PARA ELIMINAR
+let deleteForm = document.getElementById("deleteForm");
+// INPUTS
+let añoBorrar = document.getElementById("añoBorrar");
+let divisionBorrar = document.getElementById("divisionBorrar");
+// BOTON
+let btnBorrarCurso = document.getElementById("btnBorrarCurso");
+
+// AL CARGAR, CARGA LOS CURSOS DEL LOCALSTORAGE
+window.addEventListener("load", cargarDatos);
+
 
 // --------------------------------
 
@@ -131,7 +147,42 @@ eliminarCursoContainer.style.display = "none";
 ///// ASIGNACION DE EVENTOS A VARIABLES /////
 
 // ASIGNO MOTRAR FORMULARIO AL TOCAR EL BOTON DE AGREGAR
-agregarCurso.addEventListener("click", mostrarCreador);
+btnAgregarCursos.addEventListener("click", cargarPushForm);
+
+// ASIGNO FUNCION EN EL EVENTO "CLICK"
+btnEliminarCursos.addEventListener("click", cargarDeleteForm);
+
+btnBorrarCurso.onclick = (e) => {
+    localStorage.removeItem("cursos");
+    e.preventDefault();
+    // SI EL VALOR DE LOS INPUTS SON DIFERENTES A VACIO, VA A BUSCAR
+    if (añoBorrar.value != "" || divisionBorrar.value != "") {
+        let posicionObjeto = cursosTotales.findIndex((el) => el.año == añoBorrar.value && el.division == divisionBorrar.value);
+        // SI EL OBJETO BUSCADO DA -1 (NO EXISTE) TIRA ALERT
+        if (posicionObjeto == -1) {
+            alert("No existe el curso que queres borrar");
+        } else {
+            // BORRA EL CURSO BUSCADO
+            console.log(cursosTotales);
+            cursosTotales.splice(posicionObjeto, 1);
+            console.log(cursosTotales);
+            cursosBox.innerHTML = " ";
+            cursosTotales.forEach((el) => {
+                cursoComp = el.infoFull;
+                grado = document.createElement("p");
+                grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+                grado.innerHTML = cursoComp;
+                cursosBox.appendChild(grado);
+            })
+            localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+            añoBorrar.value = "";
+            divisionBorrar.value = "";
+        }
+    } else {
+        // SI NO COMPLETA LOS INPUTS
+        alert("Faltan datos")
+    }
+}
 
 // ASIGNO DATOS Y FLUJO AL ACCIONAR EL BOTON PARA PUSHEAR CURSOS, JUNTO CON VALIDACION SI ALGUN DATO ESTA VACIO
 btnAgregar.onclick = (e) => {
@@ -151,10 +202,13 @@ btnAgregar.onclick = (e) => {
     }
 }
 
-// ASIGNO FUNCION EN EL EVENTO "CLICK"
-btnEliminarCurso.addEventListener("click", cargarEnEliminar);
-
 // --------------------------------
 
+///// CONFIGURACION DE LOCAL STORAGE /////
 
+// localStorage.setItem("key", variable, "string", number, boolean)
+// localStorage.setItem("key", JSON.stringify(variable))
 
+// localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+
+// --------------------------------
