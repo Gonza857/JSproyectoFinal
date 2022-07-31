@@ -3,7 +3,8 @@
     border-bottom: 0.5px solid #000;
 
     #añadirCurso,
-    #eliminarCurso {
+    #eliminarCurso,
+    #guardarCurso {
         font-size: 1.5rem;
     }
 }
@@ -17,11 +18,10 @@ main {
     }
 
     .rightCol {
-        height: 585px;
+        height: 570px;
         border: 0.5px solid #000;
         p {
             font-size: 1.2rem;
-
         }
     }
 
@@ -33,10 +33,6 @@ main {
     font-family: "Montserrat";
 }
 
-
-
-
-
 #crearCurso {
     display: none;
 }
@@ -44,3 +40,14 @@ main {
 body {
     background: #c1c1c1;
 }
+
+#deleteForm{
+    // border: 1px solid red;
+    .holder1 {
+        border: 2px solid blue;
+    }
+}
+
+// .cajitas {
+    //border: 1px solid red;   
+// }

@@ -21,48 +21,73 @@
 
 <body class="container-fluid justify-content-center">
     <!-- ////////// NAVBAR //////////  -->
-    <nav class="row bg-primary navBarMod justify-content-center">
-        <header class="col-10">
+    <nav class="row bg-primary navBarMod justify-content-center py-2">
+        <header class="col-10 d-flex flex-wrap justify-content-around">
             <button class="btn añadirBtn" id="añadirCurso">Añadir curso</button>
             <button class="btn eliminarBtn" id="eliminarCurso">Eliminar curso</button>
+            <div class="d-flex col-4">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
         </header>
     </nav>
     <!-- ////////// CUERPO //////////  -->
     <main class="row justify-content-around py-2 mx-5">
         <!-- ////////// SECTION - PARA AGREGAR CURSOS //////////  -->
-        <section class="col-4 leftCol p-1 seccionDatos">
-            <p class="text-center mt-2">Datos</p>
-            <div id="crearCursoContainer">
+        <section class="col-4 leftCol">
+            <p class="text-center mt-2 ">Datos</p>
+            <div id="crearCursoContainer" class="">
                 <form action="" class="text-center d-flex flex-wrap justify-content-center" id="crearCurso">
-                    <div class="row justify-content-center">
-                        <div class="col-2 mx-1">
+                    <div class="row justify-content-between">
+                        <div class="col-4 cajitas">
                             <label for="año">Año</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="año">
                         </div>
-                        <div class="col-3 mx-1">
+                        <div class="col-4 cajitas">
                             <label for="division">Division</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="division">
                         </div>
-                        <div class="col-5 mx-1">
+                        <div class="col-4 cajitas">
                             <label for="turno">Turno</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="turno">
                         </div>
                     </div>
+                    <div class="" id="agregarAlumnosBox">
+                        <form action="" id="agregarAlumnosForm">
+                            <button class="btn bg-primary col-7 my-2" id="agregar">¿Agregar alumnos?</button>
+                            <div class="" id="agregarAlumnosInputs">
+                                <input type="text" id="nombreAlumno">
+                                <input type="text" id="apellidoAlumno">
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="row justify-content-center">
-                        <button class="btn bg-primary text-white mt-2 col-12" id="btnAgregar">Agregar curso</button>
+                        <button class="btn bg-primary text-white mt-2 col-5" id="btnAgregar">Agregar curso</button>
                     </div>
                 </form>
             </div>
+            <!-- FORMULARIO PARA ELIMINAR -->
             <div id="eliminarCursoContainer" class="mt-2">
-                <form action="" id="deleteForm" class="">
-
+                <form action="" id="deleteForm" class="row flex-wrap justify-content-center">
+                    <div class="row justify-content-around">
+                        <!-- <label for="añoBorrar">Año</label> -->
+                        <input type="text" id="añoBorrar" placeholder="Año a borrar"  class="col-5">
+                        <!-- <label for="divisionBorrar">Division</label> -->
+                        <input type="text" id="divisionBorrar" placeholder="Division a borrar" class="col-6">
+                    </div>
+                    <div class="row mt-2 justify-content-center"> 
+                        <button class="btn bg-danger text-white col-4" id="btnBorrarCurso">Borrar</button>
+                    </div>
                 </form>
             </div>
         </section>
         <!-- ////////// SECTION - PARA VER CURSOS //////////  -->
-        <section class="col-7 rightCol" id="cursosBox">
-            <p class="text-center mt-2">Cursos añadidos</p>
+        <section class="col-7 rightCol" id="cursosContainer">
+            <p class="text-center mt-2 tituloAñadidos">Cursos añadidos</p>
+            <div class="existentes" id="cursosBox">
 
+            </div>
         </section>
     </main>
     <footer class="footer py-4">
