@@ -1,5 +1,8 @@
 // ARRAY CONTENEDOR DE CURSOS
 let cursosTotales = []
+// VARIABLES VACIAS
+let nombreAlumnoValue;
+let apellidoAlumnoValue;
 
 ///// CONSTRUCTORES /////
 
@@ -15,10 +18,10 @@ class Curso {
 }
 
 class Alumno {
-    constructor(nombre, apellido, cursoAlumno) {
+    constructor(nombre, apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.curso = cursoAlumno;
+        //     this.curso = cursoAlumno;
     }
 }
 
@@ -57,13 +60,8 @@ class Alumno {
 //     return resBus;
 // }
 
-// FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
-const pushCursos = (añoValor, divisionValor, turnoValor) => {
-    localStorage.removeItem("cursos");
-    // CONSTRUYE CURSO
-    let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
-    // PUSHEAMOS EL CURSO AL ARRAY DE TODOS LOS CURSOS
-    cursosTotales.push(cursoNew);
+
+const sumarCursoHTML = () => {
     cursosBox.innerHTML = " ";
     cursosTotales.forEach((el) => {
         cursoComp = el.infoFull;
@@ -72,6 +70,29 @@ const pushCursos = (añoValor, divisionValor, turnoValor) => {
         grado.innerHTML = cursoComp;
         cursosBox.appendChild(grado);
     })
+}
+
+// FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
+const pushCursos = (añoValor, divisionValor, turnoValor) => {
+    // LIMPIAMOS EL LOCAL STORAGE
+    localStorage.removeItem("cursos");
+    // CONSTRUYE CURSO
+    let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
+    // PUSHEAMOS EL CURSO AL ARRAY DE TODOS LOS CURSOS
+    cursosTotales.push(cursoNew);
+    sumarCursoHTML();
+
+    //  FUNCION EN DESARROLLO
+    // nombreAlumnoValue = nombreAlumno.value;
+    // apellidoAlumnoValue = apellidoAlumno.value;
+    // let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
+    // if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+    //     el.alumnos.push(alumno)
+    //     console.log("cargue el alumno")
+    // } else {
+    // console.log("no cargue el alumno")
+    // }
+
     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
@@ -88,17 +109,6 @@ const cargarDeleteForm = () => {
     eliminarCursoContainer.style.display = "block";
 }
 
-// FUNCION PARA CARGAR DATOS DEL LOCALSTORAGE
-const cargarDatos = () => {
-    cursosTotales = JSON.parse(localStorage.getItem("cursos"));
-    cursosTotales.forEach((el) => {
-        cursoComp = el.infoFull;
-        grado = document.createElement("p");
-        grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
-        grado.innerHTML = cursoComp;
-        cursosBox.appendChild(grado);
-    })
-}
 
 // --------------------------------
 
@@ -137,10 +147,6 @@ let divisionBorrar = document.getElementById("divisionBorrar");
 // BOTON
 let btnBorrarCurso = document.getElementById("btnBorrarCurso");
 
-// AL CARGAR, CARGA LOS CURSOS DEL LOCALSTORAGE
-window.addEventListener("load", cargarDatos);
-
-
 // --------------------------------
 
 
@@ -165,15 +171,9 @@ btnBorrarCurso.onclick = (e) => {
             // BORRA EL CURSO BUSCADO
             console.log(cursosTotales);
             cursosTotales.splice(posicionObjeto, 1);
+            // VOLVEMOS A CARGAR LOS CURSOS QUE QUEDARON
+            sumarCursoHTML();
             console.log(cursosTotales);
-            cursosBox.innerHTML = " ";
-            cursosTotales.forEach((el) => {
-                cursoComp = el.infoFull;
-                grado = document.createElement("p");
-                grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
-                grado.innerHTML = cursoComp;
-                cursosBox.appendChild(grado);
-            })
             localStorage.setItem("cursos", JSON.stringify(cursosTotales));
             añoBorrar.value = "";
             divisionBorrar.value = "";
@@ -212,3 +212,25 @@ btnAgregar.onclick = (e) => {
 // localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 
 // --------------------------------
+
+cursosTotales = JSON.parse(localStorage.getItem("cursos"));
+cursosTotales.forEach((el) => {
+    cursoComp = el.infoFull;
+    grado = document.createElement("p");
+    grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+    grado.innerHTML = cursoComp;
+    cursosBox.appendChild(grado);
+})
+
+// EN DESARROLLO
+// // FORMULARIO PARA AGREGAR ALUMNOS
+// // DIV CONTENEDOR
+// let agregarAlumnosBox = document.getElementById("agregarAlumnosBox");
+// // BOTON
+// let agregarAlumnosBtn = document.getElementById("agregarAlumnosBtn");
+// //FORM CONTENEDOR DE INPUTS
+// let agregarAlumnosForm = document.getElementById("agregarAlumnosForm");
+// // INPUTS
+// let nombreAlumno = document.getElementById("nombreAlumno");
+// let apellidoAlumno = document.getElementById("apellidoAlumno");
+// // VALUES DE INPUTS
