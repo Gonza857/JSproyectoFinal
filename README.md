@@ -7,7 +7,7 @@ Se puede borrar y añadir cursos, ambas funciones trabajan con localStorage. Est
 Se simplificaron lineas de codigo, usando funciones.
 
 # Trabajo pendiente
-Se esta desarrollando las funciones para añadir alumnos a cada curso.
+Se esta desarrollando las funciones para añadir alumnos a cada curso. Por lo tanto los inputs y boton de agregar alumnos no tienen funcionamiento.
 
 # Autor
 * Gonzalo Ramos
