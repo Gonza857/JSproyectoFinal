@@ -3,40 +3,12 @@
 ## Pre Entrega Numero 2
 
 Se aplico localStorage a los cursos totales.
+Se puede borrar y añadir cursos, ambas funciones trabajan con localStorage. Esto implica el uso de convertir a JSON los objetos (stringify), setear items en el local, volverlos a traer con un getItems, convirtiendolos (parse) y mostrandolos al abrir nuevamente la ventana o el navegador.
+Se simplificaron lineas de codigo, usando funciones.
+
+# Trabajo pendiente
+Se esta desarrollando las funciones para añadir alumnos a cada curso.
 
 # Autor
 * Gonzalo Ramos
 
-// // FORMULARIO AGREGAR
-
-// // CONTENEDOR DE BOTON Y FORM
-// let agregarAlumnosBox = document.getElementById("agregarAlumnosBox");
-// // BOTON
-// let agregarAlumnos = document.getElementById("agregarAlumnos");
-// // DIV DEL FORM QUE TIENE LOS INPUTS
-// let agregarAlumnosInputs = document.getElementById("agregarAlumnosInputs");
-// // OCULTO
-// agregarAlumnosInputs.style.display = "none";
-
-// // INPUTS
-// let nombreAlumno = document.getElementById("nombreAlumno");
-// let apellidoAlumno = document.getElementById("apellidoAlumno");
-
-
-// agregarAlumnos.onclick = (e) => {
-//     e.preventDefault();
-//     console.log("hola");
-//     if (agregarAlumnosInputs.style.display == "none") {
-//         agregarAlumnosInputs.style.display = "block";
-//     } else {
-//         agregarAlumnosInputs.style.display = "none";
-//     }
-// }
-
-// let nombreAlumnoValue = nombreAlumno.value;
-// let apellidoAlumnoValue = apellidoAlumno.value;
-
-// if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
-//     let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
-//     el.alumnos.push(alumno)
-// }
