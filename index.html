@@ -36,7 +36,20 @@
         <!-- ////////// SECTION - PARA AGREGAR CURSOS //////////  -->
         <section class="col-4 leftCol">
             <p class="text-center mt-2 ">Datos</p>
-            <div id="crearCursoContainer" class="">
+            <div class="" id="preguntarContainer">
+                <p class="" id="preguntarAñadir">¡Desea añadir alumnos?</p>
+                <button id="si">si</button>
+                <button id="no">no</button>
+            </div>
+            <div id="agregarAlumnosFormBox">
+                <form id="agregarAlumnosForm">
+                    <div id="agregarAlumnosInputs">
+                        <input type="text" class="mt-1" id="nombreAlumno" placeholder="Nombre">
+                        <input type="text" class="mt-1" id="apellidoAlumno" placeholder="Apellido">
+                    </div>
+                </form>
+            </div>
+            <div id="crearCursoContainer">
                 <form action="" class="text-center d-flex flex-wrap justify-content-center" id="crearCurso">
                     <div class="row justify-content-between">
                         <div class="col-4 cajitas">
@@ -52,18 +65,10 @@
                             <input type="text" class="input-group my-1 py-1 px-2" id="turno">
                         </div>
                     </div>
-                    <div class="" id="agregarAlumnosBox">
-                        <button class="btn bg-primary col-7 my-2" id="agregarAlumnosBtn">¿Agregar alumnos?</button>
-                        <form action="" id="agregarAlumnosForm">
-                            <div class="" id="agregarAlumnosInputs">
-                                <input type="text" id="nombreAlumno">
-                                <input type="text" id="apellidoAlumno">
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="row justify-content-center">
                         <button class="btn bg-primary text-white mt-2 col-5" id="btnAgregar">Agregar curso</button>
+                        <button class="btn bg-primary text-white mt-2 col-5" id="todo">Todo</button>
+                        <button class="btn bg-primary text-white mt-2 col-5" id="btnAgregarA">Agregar alumnos</button>
                     </div>
                 </form>
             </div>
@@ -72,11 +77,11 @@
                 <form action="" id="deleteForm" class="row flex-wrap justify-content-center">
                     <div class="row justify-content-around">
                         <!-- <label for="añoBorrar">Año</label> -->
-                        <input type="text" id="añoBorrar" placeholder="Año a borrar"  class="col-5">
+                        <input type="text" id="añoBorrar" placeholder="Año a borrar" class="col-5">
                         <!-- <label for="divisionBorrar">Division</label> -->
                         <input type="text" id="divisionBorrar" placeholder="Division a borrar" class="col-6">
                     </div>
-                    <div class="row mt-2 justify-content-center"> 
+                    <div class="row mt-2 justify-content-center">
                         <button class="btn bg-danger text-white col-4" id="btnBorrarCurso">Borrar</button>
                     </div>
                 </form>
