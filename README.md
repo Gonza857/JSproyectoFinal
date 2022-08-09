@@ -6,7 +6,8 @@
 - Se aplico la desestructuracion de objetos en la linea 334 para obtener la propiedad "alumnos" y poder cargar a su array cada alumno
 
 # Trabajo pendiente
-Se esta desarrollando las funciones para añadir alumnos a cada curso. Por lo tanto los inputs y boton de agregar alumnos no tienen funcionamiento.
+- Visualizacion la cantidad de alumnos por curso.
+- Se esta desarrollando las funciones para añadir más alumnos a cada curso y poder mostrar cuantos se estan agregando.
 
 # Autor
 * Gonzalo Ramos
