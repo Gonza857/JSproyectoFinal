@@ -25,58 +25,64 @@
         <header class="col-10 d-flex flex-wrap justify-content-around">
             <button class="btn añadirBtn" id="añadirCurso">Añadir curso</button>
             <button class="btn eliminarBtn" id="eliminarCurso">Eliminar curso</button>
-            <div class="d-flex col-4">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </div>
+            <button class="btn eliminarBtn" id="eliminarCurso">Buscar curso</button>
         </header>
     </nav>
     <!-- ////////// CUERPO //////////  -->
-    <main class="row justify-content-around py-2 mx-5">
-        <!-- ////////// SECTION - PARA AGREGAR CURSOS //////////  -->
-        <section class="col-4 leftCol">
+    <main class="row justify-content-around py-2 mx-1 mx-lg-5">
+        <!-- ////////// SECTION - PARA MOSTRAR FORMULARIOS //////////  -->
+        <section class="col-12 col-lg-4 leftCol">
             <p class="text-center mt-2 ">Datos</p>
-            <div class="" id="preguntarContainer">
-                <p class="" id="preguntarAñadir">¡Desea añadir alumnos?</p>
-                <button id="si">si</button>
-                <button id="no">no</button>
+            <!-- ----- FORMULARIO PARA PREGUNTAR SI AÑADIR ALUMNOS -->
+            <div id="preguntarContainer" class="text-center py-2">
+                <p id="preguntarAñadir">¿Desea añadir alumnos?</p>
+                <button id="si" class="btn bg-primary">Si</button>
+                <button id="no" class="btn bg-danger">No</button>
             </div>
-            <div id="agregarAlumnosFormBox">
+            <!-- ----- FORMULARIO PARA AÑADIR ALUMNOS -->
+            <div id="agregarAlumnosFormBox" class="row">
                 <form id="agregarAlumnosForm">
-                    <div id="agregarAlumnosInputs">
-                        <input type="text" class="mt-1" id="nombreAlumno" placeholder="Nombre">
-                        <input type="text" class="mt-1" id="apellidoAlumno" placeholder="Apellido">
+                    <div id="agregarAlumnosInputs" class="row justify-content-center">
+                        <input type="text" class="mt-1 col-10 px-1" id="nombreAlumno" placeholder="Nombre">
+                        <input type="text" class="mt-1 col-10 px-1 id="apellidoAlumno" placeholder="Apellido">
                     </div>
                 </form>
-                <button id="btnAgregarAlumno">Agregar Alumno</button>
+                <div class="d-flex flex-wrap justify-content-center mt-2">
+                    <button class="btn bg-primary col-5 mx-2" id="btnAgregarAlumno" >Agregar Alumno</button>
+                    <button class="btn bg-danger col-5 mx-2" id="btnAgregarAyC">Finalizar</button>
+                </div>
             </div>
+            <!-- ----- FORMULARIO PARA AÑADIR CURSO -->
             <div id="crearCursoContainer">
-                <form action="" class="text-center d-flex flex-wrap justify-content-center" id="crearCurso">
+                <form action="" class="text-center d-flex flex-wrap justify-content-center py-2" id="crearCurso">
                     <div class="row justify-content-between">
-                        <div class="col-4 cajitas">
+                        <div class="col-3 cajitas">
                             <label for="año">Año</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="año">
                         </div>
-                        <div class="col-4 cajitas">
+                        <div class="col-3 cajitas">
                             <label for="division">Division</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="division">
                         </div>
-                        <div class="col-4 cajitas">
+                        <div class="col-6 cajitas">
                             <label for="turno">Turno</label>
                             <input type="text" class="input-group my-1 py-1 px-2" id="turno">
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <button class="btn bg-primary text-white mt-2 col-5" id="btnAgregar">Agregar curso</button>
+                        <button class="btn bg-primary text-white mt-2 col-12" id="btnAgregar">Agregar curso</button>
                         <button class="btn bg-primary text-white mt-2 col-5" id="btnAgregarA">Agregar alumnos</button>
                     </div>
                 </form>
             </div>
-            <!-- DIV PARA MOSTRAR LOS ALUMNOS QUE VAMOS AGREGANDO -->
-            <div id="alumnosAgregados">
+            <!-- CONTENEDOR PARA MOSTRAR LOS ALUMNOS QUE VAMOS AGREGANDO -->
+            <div id="alumnosAgregadosBox" class="text-center pt-2">
+                <p>Alumnos Agregados</p>
+                <div id="alumnosAgregados">
 
+                </div>
             </div>
-            <!-- FORMULARIO PARA ELIMINAR -->
+            <!-- FORMULARIO PARA ELIMINAR CURSOS -->
             <div id="eliminarCursoContainer" class="mt-2">
                 <form action="" id="deleteForm" class="row flex-wrap justify-content-center">
                     <div class="row justify-content-around">
@@ -91,14 +97,15 @@
                 </form>
             </div>
         </section>
-        <!-- ////////// SECTION - PARA VER CURSOS //////////  -->
-        <section class="col-7 rightCol" id="cursosContainer">
+        <!-- ////////// SECCION PARA VER CURSOS //////////  -->
+        <section class="col-12 rightCol mt-2" id="cursosContainer">
             <p class="text-center mt-2 tituloAñadidos">Cursos añadidos</p>
             <div class="existentes" id="cursosBox">
 
             </div>
         </section>
     </main>
+    <!-- ////////// FOOTER //////////  -->
     <footer class="footer py-4">
         <div class="row justify-content-around">
             <p class="col-5 text-center my-auto">Curso de Javascript CoderHouse 2022</p>

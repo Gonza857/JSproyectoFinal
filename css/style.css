@@ -49,6 +49,10 @@ body {
   border: 2px solid blue;
 }
 
+#btnAgregarAlumno, #btnAgregarAyC {
+  font-size: 0.7rem;
+}
+
 .footer {
   background-image: linear-gradient(to left, #477373, #93bfb7);
 }

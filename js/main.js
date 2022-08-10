@@ -1,25 +1,28 @@
 // ARRAY CONTENEDOR DE CURSOS
 let cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
 
-// --------------------------------
+// ------------------------------
 
 // VARIABLES VACIAS
 let nombreAlumnoValue;
 let apellidoAlumnoValue;
+let alumnosObjeto = [];
+
 // --------------------------------
 
 ///// ASIGNACION DE NODOS A VARIABLES /////
 
+// -------- NAVBAR --------
 // BOTONES DE NAVBAR
 let btnEliminarCursos = document.getElementById("eliminarCurso");
 let btnAgregarCursos = document.getElementById("añadirCurso");
 
+// -------- SECCION PARA VER CURSOS --------
 // DIV CONTAINER DE CURSOS AÑADIDOS Y DIV DE CURSOS
 let cursosBox = document.getElementById("cursosBox");
 // CONTAINER DE CURSOS AGREGADOS
-let existentes = document.getElementById("cursosBox");
 
-// FORMULARIO PARA AGREGAR
+// -------- FORUMLARIO PARA AGREGAR CURSOS --------
 // INPUTS
 let año = document.getElementById("año");
 let division = document.getElementById("division");
@@ -32,7 +35,8 @@ let crearCursoContainer = document.getElementById("crearCursoContainer");
 let formulario = document.getElementById("crearCurso");
 crearCursoContainer.style.display = "none";
 
-// CONTENEDOR DE FORMULARIO PARA ELIMINAR
+// -------- FORMULARIO PARA ELIMINAR CURSOS --------
+// CONTENEDOR DE FORMULARIO PARA ELIMINAR CURSOS
 let eliminarCursoContainer = document.getElementById("eliminarCursoContainer")
 eliminarCursoContainer.style.display = "none";
 // FORMULARIO PARA ELIMINAR
@@ -43,14 +47,40 @@ let divisionBorrar = document.getElementById("divisionBorrar");
 // BOTON
 let btnBorrarCurso = document.getElementById("btnBorrarCurso");
 
-// --------------------------------
-cursosTotales.forEach((el) => {
-    cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
-    grado = document.createElement("p");
-    grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
-    grado.innerHTML = cursoComp;
-    cursosBox.appendChild(grado);
-})
+// -------- FORMULARIO PARA AGREGAR ALUMNOS --------
+// CONTENEDOR
+let agregarAlumnosBox = document.getElementById("agregarAlumnosBox");
+// BOTON
+let agregarAlumnosBtn = document.getElementById("agregarAlumnosBtn");
+//FORM CONTENEDOR DE INPUTS
+let agregarAlumnosFormBox = document.getElementById("agregarAlumnosFormBox");
+agregarAlumnosFormBox.style.display = "none";
+// INPUTS
+// CONTENEDOR DE INPUTS
+let agregarAlumnosInputs = document.getElementById("agregarAlumnosInputs");
+let nombreAlumno = document.getElementById("nombreAlumno");
+let apellidoAlumno = document.getElementById("apellidoAlumno");
+let cantidadAlumnos = document.getElementById("cantidadAlumnos");
+// BOTON PARA SUMAR ALUMNOS AL ARRAY 
+let btnAgregarA = document.getElementById("btnAgregarA");
+btnAgregarA.style.display = "none";
+// BOTON PARA SUBIR ALUMNO Y CURSOS AL OBJETO
+let btnAgregarAyC = document.getElementById("btnAgregarAyC");
+
+// -------- FORMULARIO PARA PREGUNTAR SI QUIERE AÑADIR ALUMNOS --------
+// CONTENEDOR
+let preguntarContainer = document.getElementById("preguntarContainer");
+preguntarContainer.style.display = "none";
+// PARRAFO CON TEXTO
+let preguntaAñador = document.getElementById("preguntarAñadir");
+// BOTONES
+let si = document.getElementById("si");
+let no = document.getElementById("no");
+
+// -------- CONTENEDOR DE ALUMNOS AGREGADOS --------
+let alumnosAgregadosBox = document.getElementById("alumnosAgregadosBox");
+alumnosAgregadosBox.style.display = "none";
+
 // --------------------------------
 
 ///// CONSTRUCTORES /////
@@ -61,6 +91,7 @@ class Curso {
         this.division = division;
         this.turno = turno;
         this.alumnos = [];
+        this.cantidad_alumnos = this.alumnos.length;
         this.info = `Año: ${this.año}° - Division: ${this.division}`;
         this.infoFull = `Año: ${this.año}° - Division: ${this.division}° - Turno: ${this.turno}`;
     }
@@ -76,32 +107,16 @@ class Alumno {
 
 // --------------------------------
 
+///// FUNCIONES /////
 
-// FUNCION DE AGREGAR ALUMNOS A CURSOS (PROXIMAMENTE A USAR)
-// const crearAlumnos = () => {
-//     let nombre = prompt("Nombre del alumno");
-//     let apellido = prompt("Apellido del alumno");
-//     let añoAlumno = parseInt(prompt("¿Que año es?"))
-//     let divisionAlumno = parseInt(prompt("¿Que divison es?"))
-//     let cursoAlumno = `${añoAlumno}/${divisionAlumno}`;
-//     let alumnoNew = new Alumno(nombre, apellido, cursoAlumno);
-//     return alumnoNew;
-// }
-
-// FUNCION PARA VER LOS CURSOS QUE HAY (PROXIMAMENTE A USAR)
-// const verCursosTotales = () => {
-//     cursosTotales.forEach(curso => console.log(curso))
-// }
-
-// FUNCION PARA SABER CUANTOS CURSOS HAY, Y CUALES SON (PROXIMAMENTE A USAR)
-// const saberCursos = () => {
-//     let cantidadCursos = cursosTotales.length;
-//     let cantidad = `Cantidad de cursos:${cantidadCursos}.`;
-//     alert(cantidad);
-//     cursosTotales.forEach(curso => {
-//         alert(`${curso.año}/${curso.division}`);
-//     })
-// }
+// CARGA LOS CURSOS SI LOS HAY
+cursosTotales.forEach((el) => {
+    cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+    grado = document.createElement("p");
+    grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+    grado.innerHTML = cursoComp;
+    cursosBox.appendChild(grado);
+})
 
 // FUNCION PARA BUSCAR UN CURSO, POR AÑO, DIVISION Y TURNO. (PROXIMAMENTE A USAR)
 // const buscaCurso = () => {
@@ -112,91 +127,21 @@ class Alumno {
 //     return resBus;
 // }
 
-
-
-
-// // FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
-// const pushCursos = (añoValor, divisionValor, turnoValor) => {
-//     // LIMPIAMOS EL LOCAL STORAGE
-//     localStorage.removeItem("cursos");
-//     // CONSTRUYE CURSO
-//     let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
-//     // PUSHEAMOS EL CURSO AL ARRAY DE TODOS LOS CURSOS
-//     cursosTotales.push(cursoNew);
-//     sumarCursoHTML();
-
-//     //  FUNCION EN DESARROLLO
-//     // nombreAlumnoValue = nombreAlumno.value;
-//     // apellidoAlumnoValue = apellidoAlumno.value;
-//     // let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
-//     // if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
-//     //     el.alumnos.push(alumno)
-//     //     console.log("cargue el alumno")
-//     // } else {
-//     // console.log("no cargue el alumno")
-//     // }
-
-//     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
-// }
-
 // FUNCION QUE MUESTRA EL FORMULARIO PARA AGREGAR
-const cargarPushForm = () => {
-    crearCursoContainer.style.transition = "all 1s ease";
+const cargarFormularioAgregarC = () => {
     crearCursoContainer.style.display = "block"
     eliminarCursoContainer.style.display = "none";
-
     agregarAlumnosFormBox.style.display = "none";
     btnAgregarA.style.display = "none";
 }
 
 // FUNCION QUE ESCONDE EL FORMULARIO PARA AGREGAR Y MUESTRA EL DE ELIMINAR
-const cargarDeleteForm = () => {
+const cargarFormularioEliminarC = () => {
     crearCursoContainer.style.display = "none";
     eliminarCursoContainer.style.display = "block";
 }
 
-
-// --------------------------------
-
-
-
-
-
-
-
-// --------------------------------
-
-///// CONFIGURACION DE LOCAL STORAGE /////
-
-// localStorage.setItem("key", variable, "string", number, boolean)
-// localStorage.setItem("key", JSON.stringify(variable))
-
-// localStorage.setItem("cursos", JSON.stringify(cursosTotales));
-
-// --------------------------------
-
-
-// EN DESARROLLO
-// FORMULARIO PARA AGREGAR ALUMNOS
-// DIV CONTENEDOR
-let agregarAlumnosBox = document.getElementById("agregarAlumnosBox");
-// BOTON
-let agregarAlumnosBtn = document.getElementById("agregarAlumnosBtn");
-//FORM CONTENEDOR DE INPUTS
-let agregarAlumnosFormBox = document.getElementById("agregarAlumnosFormBox");
-agregarAlumnosFormBox.style.display = "none";
-// INPUTS
-// CONTENEDOR DE INPUTS
-let agregarAlumnosInputs = document.getElementById("agregarAlumnosInputs");
-let nombreAlumno = document.getElementById("nombreAlumno");
-let apellidoAlumno = document.getElementById("apellidoAlumno");
-let cantidadAlumnos = document.getElementById("cantidadAlumnos")
-// BOTON DE AGREGAR AMBAS COSAS
-let btnAgregarA = document.getElementById("btnAgregarA");
-btnAgregarA.style.display = "none"
-let todo = document.getElementById("todo");
-
-// FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL P EN EL HTML CON AÑO, DIVISION Y TURNO
+// FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL <P> CON AÑO, DIVISION Y TURNO
 const pushCursos = (añoValor, divisionValor, turnoValor) => {
     localStorage.removeItem("cursos");
     let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
@@ -205,6 +150,7 @@ const pushCursos = (añoValor, divisionValor, turnoValor) => {
     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
+// ???
 const pushCA = (añoValor, divisionValor, turnoValor) => {
     localStorage.removeItem("cursos");
     let cursoNew = new Curso(añoValor, divisionValor, turnoValor);
@@ -214,6 +160,7 @@ const pushCA = (añoValor, divisionValor, turnoValor) => {
     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
+// FUNCION PARA INYECTAR LOS CURSOS AL HTML
 const sumarCursoHTML = () => {
     cursosBox.innerHTML = " ";
     cursosTotales.forEach((el) => {
@@ -225,22 +172,90 @@ const sumarCursoHTML = () => {
     })
 }
 
-// 
-let preguntarContainer = document.getElementById("preguntarContainer");
-preguntarContainer.style.display = "none";
-let preguntaAñador = document.getElementById("preguntarAñadir");
-let si = document.getElementById("si");
-let no = document.getElementById("no");
+// FUNCION PARA CREAR CURSOS
+/* 
+- toma valores de los inputs
+- si estan completos, guarda el curso usando constuctor en una variable y resetea los inputs
+- despues esconde el formulario de crear, y muestra si quiere agregar alumnos, si o no.
+- si toca en "si", lee inputs y si estan completos, crea el alumno, los sube a la variable del curso en el array de alumnos. y sube el curso creado al array.
+- si toca en "no", cierra el formulario de alumnos y vuelve al de crear, y sube el curso al array, pero sin alumnos
+*/
+const creadorCurso = () => {
+    let añoValor = año.value;
+    let divisionValor = division.value;
+    let turnoValor = turno.value;
+    let cursoNew;
+    if (añoValor != "" && divisionValor != "" && turnoValor != "") {
+        crearCursoContainer.style.display = "none";
+        cursoNew = new Curso(añoValor, divisionValor, turnoValor);
+        año.value = "";
+        division.value = "";
+        turno.value = "";
+    }
+    console.log(cursoNew);
+    return cursoNew;
+}
+
+// FUNCION QUE AGREGA ALUMNOS Y CURSO AL HTML
+const agregarAyC = (alumnosObjeto) => {
+    console.log(alumnosObjeto);
+    if (alumnosObjeto == []) {
+        Swal.fire("No agregaste alumnos")
+    } else {
+        let cursoNew = creadorCurso();
+        console.log(cursoNew)
+        let {
+            alumnos
+        } = cursoNew;
+        alumnosObjeto.forEach((alumno) => {
+            console.log(alumno);
+            alumnos.push(alumno)
+        })
+        console.log(alumnosObjeto);
+        console.log(cursoNew.alumnos);
+        cursosTotales.push(cursoNew);
+        sumarCursoHTML();
+        localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+        alumnosObjeto = []
+    }
+}
+
+// FUNCION PARA AGREGAGR ALUMNOS AL ARRAY, PERO NO LO SUBE AL OBJETO CURSO EN EL ARRAY DE CURSOS TOTALES
+const agregarA = (nombreAlumnoValue, apellidoAlumnoValue, alumnosObjeto) => {
+    if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+        console.log(alumnosObjeto);
+        let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
+        alumnosObjeto.push(alumno);
+        console.log(alumnosObjeto);
+    }
+    mostrarAlumnos(alumnosObjeto);
+    console.log(alumnosObjeto);
+    return alumnosObjeto;
+}
+
+// FUNCION PARA SUMUMAR LOS ALUMNOS AGREGADOS AL OBJETO CURSO EN LA PROPIEDAD ALUMNOS
+const mostrarAlumnos = (alumnosArray) => {
+    alumnosAgregados.innerHTML = ""
+    alumnosArray.forEach((alumno) => {
+        let alumnoInfo = `${alumno.nombre} ${alumno.apellido}`;
+        let alumnoParrafo = document.createElement("p")
+        alumnoParrafo.innerText = alumnoInfo;
+        alumnosAgregados.appendChild(alumnoParrafo);
+    })
+}
+
+// --------------------------------
 
 ///// ASIGNACION DE EVENTOS A VARIABLES /////
 
-// ASIGNO MOTRAR FORMULARIO AL TOCAR EL BOTON DE AGREGAR
-btnAgregarCursos.addEventListener("click", cargarPushForm);
+// MOSTRAR FORMULARIO PARA AGREGAR CURSO
+btnAgregarCursos.addEventListener("click", cargarFormularioAgregarC);
 
-// ASIGNO FUNCION EN EL EVENTO "CLICK"
-btnEliminarCursos.addEventListener("click", cargarDeleteForm);
+// MOSTRAR FORMULARIO PARA ELIMINAR CURSOS
+btnEliminarCursos.addEventListener("click", cargarFormularioEliminarC);
 
-/* AL TOCAR BOTON:
+// BORRAR CURSOS
+/*
 - remueve los cursos del localStorage
 - analiza si los inputs del curso que queremos borrar estan completos. Si no estan vacios, busca el curso con los datos en el array de cursos totales.
 - si es -1 (no existe) devuelve alert.
@@ -277,49 +292,27 @@ btnBorrarCurso.onclick = (e) => {
     }
 }
 
-/* 
-AL TOCAR EL BOTON:
-- toma valores de los inputs
-- si estan completos, guarda el curso usando constuctor en una variable y resetea los inputs
-- despues esconde el formulario de crear, y muestra si quiere agregar alumnos, si o no.
-- si toca en "si", lee inputs y si estan completos, crea el alumno, los sube a la variable del curso en el array de alumnos. y sube el curso creado al array.
-- si toca en "no", cierra el formulario de alumnos y vuelve al de crear, y sube el curso al array, pero sin alumnos
-*/
-
-const creadorCurso = () => {
-    let añoValor = año.value;
-    let divisionValor = division.value;
-    let turnoValor = turno.value
-    let cursoNew;
-    if (añoValor != "" && divisionValor != "" && turnoValor != "") {
-        crearCursoContainer.style.display = "none";
-        cursoNew = new Curso(añoValor, divisionValor, turnoValor);
-        año.value = "";
-        division.value = "";
-        turno.value = "";
-    }
-    return cursoNew;
-}
-
 btnAgregar.addEventListener("click", (e) => {
-    // prevenimos default
     e.preventDefault();
-    // esconde el form de crear y muestra el de agregar alumnos
+    // ESCONDE EL FORMULARIO DE CREAR CURSOS Y MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
     crearCursoContainer.style.display = "none";
     preguntarContainer.style.display = "block";
 
 })
 
+// MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
 si.onclick = (e) => {
     e.preventDefault();
-    // boton si (muestra otro from)
+    // MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
     agregarAlumnosFormBox.style.display = "block";
     btnAgregarA.style.display = "block";
     preguntarContainer.style.display = "none";
+    alumnosAgregadosBox.style.display = "block"
+
 }
 
+// AL NO CARGAR ALUMNOS, SUBE EL CURSO CREADO PERO SIN ALUMNOS
 no.onclick = (e) => {
-    // prevenimos default
     e.preventDefault();
     let cursoCreado = creadorCurso();
     preguntarContainer.style.display = "none";
@@ -330,22 +323,26 @@ no.onclick = (e) => {
 }
 
 btnAgregarAlumno.onclick = () => {
-    let cursoNew = creadorCurso();
-    let {alumnos} = cursoNew;
+    alumnosAgregados.style.display = "block";
     let nombreAlumnoValue = nombreAlumno.value;
     let apellidoAlumnoValue = apellidoAlumno.value;
-    console.log(alumnos);
-    if (nombreAlumnoValue != "" && apellidoAlumno != "") {
-        let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
-        alumnos.push(alumno)
-        cursosTotales.push(cursoNew);
-        console.log(cursoNew);
-        console.log(cursoNew.alumnos.length);
-        sumarCursoHTML();
-        localStorage.setItem("cursos", JSON.stringify(cursosTotales));
-        nombreAlumnoValue = "";
-        apellidoAlumnoValue = "";
+    if (alumnosObjeto == []) {
+        agregarA(nombreAlumnoValue, apellidoAlumnoValue, alumnosObjeto);
     } else {
-        Swal.fire("Faltan datos");
+        if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+            let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
+            alumnosObjeto.push(alumno);
+            mostrarAlumnos(alumnosObjeto);
+            apellidoAlumno.value = "";
+            nombreAlumno.value = "";
+        } else {
+            Swal.fire("Faltan datos del alumno")
+        }
     }
+}
+
+btnAgregarAyC.onclick = () => {
+    agregarAyC(alumnosObjeto);
+    agregarAlumnosFormBox.style.display = "none";
+    alumnosAgregadosBox.style.display = "none";
 }
