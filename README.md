@@ -1,13 +1,8 @@
 # Proyecto  -  Javascript CoderHouse
 
-## Desafio complementario | Operadores Avanzados
+## Desafio entregable | Librerias
 
-- Se aplico el operador OR en la linea 2 para cargar del localStorage si hay algo, sino cargar el array vacio.
-- Se aplico la desestructuracion de objetos en la linea 334 para obtener la propiedad "alumnos" y poder cargar a su array cada alumno
-
-# Trabajo pendiente
-- Visualizacion la cantidad de alumnos por curso.
-- Se esta desarrollando las funciones para añadir más alumnos a cada curso y poder mostrar cuantos se estan agregando.
+- Se aplicó la libreria Sweet Alert para mostrar alertas en caso de que falte algun dato en los inputs. (Linea 276, 294, 308, 349 y 353)
 
 # Autor
 * Gonzalo Ramos

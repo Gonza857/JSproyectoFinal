@@ -57,7 +57,6 @@ let agregarAlumnosFormBox = document.getElementById("agregarAlumnosFormBox");
 agregarAlumnosFormBox.style.display = "none";
 // INPUTS
 // CONTENEDOR DE INPUTS
-let agregarAlumnosInputs = document.getElementById("agregarAlumnosInputs");
 let nombreAlumno = document.getElementById("nombreAlumno");
 let apellidoAlumno = document.getElementById("apellidoAlumno");
 let cantidadAlumnos = document.getElementById("cantidadAlumnos");
@@ -129,16 +128,20 @@ cursosTotales.forEach((el) => {
 
 // FUNCION QUE MUESTRA EL FORMULARIO PARA AGREGAR
 const cargarFormularioAgregarC = () => {
+    agregarAlumnosFormBox.style.display = "none";
     crearCursoContainer.style.display = "block"
     eliminarCursoContainer.style.display = "none";
-    agregarAlumnosFormBox.style.display = "none";
     btnAgregarA.style.display = "none";
+    alumnosAgregadosBox.style.display = "none";
+    preguntarContainer.style.display = "none"
 }
 
 // FUNCION QUE ESCONDE EL FORMULARIO PARA AGREGAR Y MUESTRA EL DE ELIMINAR
 const cargarFormularioEliminarC = () => {
     crearCursoContainer.style.display = "none";
     eliminarCursoContainer.style.display = "block";
+    agregarAlumnosFormBox.style.display = "none";
+    preguntarContainer.style.display = "none";
 }
 
 // FUCNCION QUE CREA LOS CURSOS Y LOS GUARDA EN EL ARRAY Y CREA EL <P> CON AÑO, DIVISION Y TURNO
@@ -294,10 +297,16 @@ btnBorrarCurso.onclick = (e) => {
 
 btnAgregar.addEventListener("click", (e) => {
     e.preventDefault();
+    let añoValor = año.value;
+    let divisionValor = division.value;
+    let turnoValor = turno.value;
     // ESCONDE EL FORMULARIO DE CREAR CURSOS Y MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
-    crearCursoContainer.style.display = "none";
-    preguntarContainer.style.display = "block";
-
+    if (añoValor != "" && divisionValor != "" && turnoValor != "") {
+        crearCursoContainer.style.display = "none";
+        preguntarContainer.style.display = "block";
+    } else {
+        Swal.fire("Faltan datos para agregar el curso")
+    }
 })
 
 // MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
@@ -324,20 +333,24 @@ no.onclick = (e) => {
 
 btnAgregarAlumno.onclick = () => {
     alumnosAgregados.style.display = "block";
-    let nombreAlumnoValue = nombreAlumno.value;
-    let apellidoAlumnoValue = apellidoAlumno.value;
-    if (alumnosObjeto == []) {
-        agregarA(nombreAlumnoValue, apellidoAlumnoValue, alumnosObjeto);
-    } else {
-        if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
-            let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
-            alumnosObjeto.push(alumno);
-            mostrarAlumnos(alumnosObjeto);
-            apellidoAlumno.value = "";
-            nombreAlumno.value = "";
+    nombreAlumnoValue = nombreAlumno.value;
+    apellidoAlumnoValue = apellidoAlumno.value;
+    if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+        if (alumnosObjeto == []) {
+            agregarA(nombreAlumnoValue, apellidoAlumnoValue, alumnosObjeto);
         } else {
-            Swal.fire("Faltan datos del alumno")
+            if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+                let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
+                alumnosObjeto.push(alumno);
+                mostrarAlumnos(alumnosObjeto);
+                apellidoAlumno.value = "";
+                nombreAlumno.value = "";
+            } else {
+                Swal.fire("Faltan datos del alumno")
+            }
         }
+    } else {
+        Swal.fire("Faltan datos del alumno")
     }
 }
 

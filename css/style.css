@@ -24,7 +24,6 @@ main .leftCol p {
   font-size: 1.2rem;
 }
 main .rightCol {
-  height: 570px;
   border: 0.5px solid #000;
 }
 main .rightCol p {
@@ -47,10 +46,6 @@ body {
 
 #deleteForm .holder1 {
   border: 2px solid blue;
-}
-
-#btnAgregarAlumno, #btnAgregarAyC {
-  font-size: 0.7rem;
 }
 
 .footer {
