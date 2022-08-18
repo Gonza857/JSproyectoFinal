@@ -1,37 +1,13 @@
 // ARRAY CONTENEDOR DE CURSOS
-let cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
-let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+// let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 
-// DE FORMA ASINCRONICA, TRAEMOS LOS CURSOS
-const cargarCursos = async () => {
-    // intenta esto
-    try {
-        let response = await fetch("./cursos.json");
-        let result = await response.json();
-        result.forEach((el) => {
-            cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
-            grado = document.createElement("p");
-            grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
-            grado.innerHTML += cursoComp;
-            cursosBox.appendChild(grado);
-        })
-    }
-    // si hay error hace esto (catch)
-    catch (error) {
-        console.log(error)
-    }
-}
-cargarCursos();
-
-let onN;
-let onSurN;
-
-console.log(onN + onSurN)
 
 // ------------------------------
 
 // VARIABLES VACIAS
+let cursosTotales;
+let arrayAlumnos;
 let nombreAlumnoValue;
 let apellidoAlumnoValue;
 let alumnosObjeto = [];
@@ -145,40 +121,62 @@ let btnCrearUsuarioForm = document.getElementById("btnCrearUsuarioForm");
 let alumnosAgregadosBox = document.getElementById("alumnosAgregadosBox");
 alumnosAgregadosBox.style.display = "none";
 
+// DESARROLLO PARA BUSCAR CURSOS
+
+// CONTENEDOR FORMULARIO BUSCAR CURSO
+let buscarCursoContainer = document.getElementById("buscarCursoContainer");
+// FORMULARIO
+// INPUTS
+let buscarCursoAño = document.getElementById("buscarCursoAño");
+let buscarCursoDivision = document.getElementById("buscarCursoDivision");
+// VARIABLE PARA VALUES DE INPUTS
+let buscarCursoAñoValue;
+let buscarCursoDivisionValue;
+// BOTON PARA BUSCAR
+let btnBuscarC = document.getElementById("btnBuscarC");
+// BOTON PARA VOLVER Y MOSTRAR LOS CURSOS DEL ARRAY cursosTotales nuevamente
+let btnVolver = document.getElementById("btnVolver");
+
 // --------------------------------
 
-if (usuarios.length === 0) {
-    // Swal.fire("Array de usuarios vacio");
-    console.log(usuarios);
+let usuarios = [{
+    nombre: "coderhouse",
+    apellido: "javascript"
+}]
+
+buscarCursoContainer.style.display = "none";
+controlBox.style.display = "none";
+loginBox.style.display = "block";
+btnIniciarSesion.style.display = "block";
+btnCerrarSesion.style.display = "none";
+
+btnIniciarSesionForm.onclick = (e) => {
+    e.preventDefault();
+    iniciarTodo();
+}
+
+const iniciarTodo = () => {
+    let nombreUsuarioValue = nombreUsuario.value;
+    let apellidoUsuarioValue = apellidoUsuario.value;
+    console.log(nombreAlumnoValue);
+    console.log(apellidoAlumnoValue);
     controlBox.style.display = "none";
-    loginBox.style.display = "block";
-    btnIniciarSesion.style.display = "none";
-    btnCerrarSesion.style.display = "none";
-    btnCrearUsuario.style.display = "inline-block";
-} else {
-    console.log(usuarios);
-    // Swal.fire("Array de usuarios, contiene algo");
-    loginBox.style.display = "block";
-    btnIniciarSesion.style.display = "block";
-    controlBox.style.display = "block";
+    if (nombreUsuarioValue == usuarios[0].nombre && apellidoUsuarioValue == usuarios[0].apellido) {
+        controlBox.style.display = "block";
+        btnIniciarSesion.style.display = "none";
+        iniciarSesionBox.style.display = "none";
+        btnCerrarSesion.style.display = "inline-block";
+        cargarCursos();
+        cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
+        cargarCursosLocal();
+        Swal.fire("hola!")
+    } else {
+        Swal.fire("Datos incorrectos");
+    }
 }
 
-btnCrearUsuario.onclick = (e) => {
-    e.preventDefault();
-    crearCursoContainer.style.display = "none";
-    eliminarCursoContainer.style.display = "none";
-    agregarAlumnosFormBox.style.display = "none";
-    buscarCursoContainer.style.display = "none";
-    crearUsuarioBox.style.display = "block";
-}
-
-btnCerrarSesion.onclick = (e) => {
-    e.preventDefault();
-}
-
-btnCrearUsuarioForm.onclick = (e) => {
-    e.preventDefault();
-    fnCrearUsuario();
+btnCerrarSesion.onclick = () => {
+    window.location.reload()
 }
 
 btnIniciarSesion.onclick = (e) => {
@@ -190,8 +188,32 @@ btnIniciarSesion.onclick = (e) => {
     iniciarSesionBox.style.display = "block";
 }
 
-let nombreUsuarioValue = nombreUsuario.value;
-let apellidoUsuarioValue = apellidoUsuario.value;
+// if (usuarios.length === 0) {
+//     // Swal.fire("Array de usuarios vacio");
+//     console.log(usuarios);
+
+
+// } else {
+//     console.log(usuarios);
+//     // Swal.fire("Array de usuarios, contiene algo");
+//     loginBox.style.display = "block";
+//     btnIniciarSesion.style.display = "block";
+//     controlBox.style.display = "block";
+// }
+
+btnCrearUsuario.onclick = (e) => {
+    e.preventDefault();
+    crearCursoContainer.style.display = "none";
+    eliminarCursoContainer.style.display = "none";
+    agregarAlumnosFormBox.style.display = "none";
+    buscarCursoContainer.style.display = "none";
+    crearUsuarioBox.style.display = "block";
+}
+
+btnCrearUsuarioForm.onclick = (e) => {
+    e.preventDefault();
+    fnCrearUsuario();
+}
 
 // btnIniciarSesionForm.onclick = (e) => {
 //     e.preventDefault(e)
@@ -209,7 +231,7 @@ const fnCerrarSesion = () => {
     let casa = usuarios.find(usuario => usuario.nombre == onN && usuario.apellido == onSurN);
     console.log(casa)
 }
-fnCerrarSesion();
+// fnCerrarSesion();
 
 ///// CONSTRUCTORES /////
 
@@ -243,49 +265,68 @@ class Usuario {
 // --------------------------------
 
 ///// FUNCIONES /////
-let arrayAlumnos;
+
 // CARGA LOS CURSOS SI LOS HAY
-cursosTotales.forEach((el) => {
-    cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
-    grado = document.createElement("p");
-    grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
-    grado.innerHTML = cursoComp;
-    cursosBox.appendChild(grado);
 
-    let btnVerA = document.createElement("button");
-    btnVerA.setAttribute("class", "mx-2");
-    btnVerA.setAttribute("id", "btnVerA")
-    btnVerA.textContent = "Ver alumnos";
-    grado.appendChild(btnVerA);
+const cargarCursosLocal = () => {
+    cursosTotales.forEach((el) => {
+        cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+        grado = document.createElement("p");
+        grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+        grado.innerHTML = cursoComp;
+        cursosBox.appendChild(grado);
+    
+        let btnVerA = document.createElement("button");
+        btnVerA.setAttribute("class", "mx-2");
+        btnVerA.setAttribute("id", "btnVerA")
+        btnVerA.textContent = "Ver alumnos";
+        grado.appendChild(btnVerA);
+    
+        let btnCerrarA = document.createElement("button");
+        btnCerrarA.setAttribute("class", "mx-2");
+        btnCerrarA.setAttribute("id", "btnCerrarA");
+        btnCerrarA.textContent = "Cerrar";
+    
+        let {
+            alumnos
+        } = el;
+        console.log(alumnos)
+    
+        let listaA = document.createElement("ul");
+        grado.appendChild(listaA);
+    
+        btnVerA.onclick = (e) => {
+            e.preventDefault();
+            alumnos.forEach((alumno) => {
+                let datoA = `${alumno.nombre} ${alumno.apellido}`
+                let alumnito = document.createElement("li");
+                alumnito.textContent = datoA;
+                listaA.appendChild(alumnito);
+            })
+            grado.appendChild(btnCerrarA);
+        }
+    })
+}
 
-    let btnCerrarA = document.createElement("button");
-    btnCerrarA.setAttribute("class", "mx-2");
-    btnCerrarA.setAttribute("id", "btnCerrarA");
-    btnCerrarA.textContent = "Cerrar";
-
-    let {
-        alumnos
-    } = el;
-    console.log(alumnos)
-
-    let listaA = document.createElement("ul");
-    grado.appendChild(listaA);
-
-    btnVerA.onclick = (e) => {
-        e.preventDefault();
-        alumnos.forEach((alumno) => {
-            let datoA = `${alumno.nombre} ${alumno.apellido}`
-            let alumnito = document.createElement("li");
-            alumnito.textContent = datoA;
-            listaA.appendChild(alumnito);
+// DE FORMA ASINCRONICA, TRAEMOS LOS CURSOS
+const cargarCursos = async () => {
+    // intenta esto
+    try {
+        let response = await fetch("./cursos.json");
+        let result = await response.json();
+        result.forEach((el) => {
+            cursoComp = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+            grado = document.createElement("p");
+            grado.setAttribute("class", "cajaCurso p-0 m-0 mt-1 p-2");
+            grado.innerHTML += cursoComp;
+            cursosBox.appendChild(grado);
         })
-        grado.appendChild(btnCerrarA);
-
     }
-
-})
-
-
+    // si hay error hace esto (catch)
+    catch (error) {
+        console.log(error)
+    }
+}
 
 // FUNCION PARA BUSCAR UN CURSO, POR AÑO, DIVISION Y TURNO. (PROXIMAMENTE A USAR)
 // const buscaCurso = () => {
@@ -555,21 +596,7 @@ btnAgregarAyC.onclick = () => {
     alumnosAgregadosBox.style.display = "none";
 }
 
-// DESARROLLO PARA BUSCAR CURSOS
 
-// CONTENEDOR FORMULARIO BUSCAR CURSO
-let buscarCursoContainer = document.getElementById("buscarCursoContainer");
-// FORMULARIO
-// INPUTS
-let buscarCursoAño = document.getElementById("buscarCursoAño");
-let buscarCursoDivision = document.getElementById("buscarCursoDivision");
-// VARIABLE PARA VALUES DE INPUTS
-let buscarCursoAñoValue;
-let buscarCursoDivisionValue;
-// BOTON PARA BUSCAR
-let btnBuscarC = document.getElementById("btnBuscarC");
-// BOTON PARA VOLVER Y MOSTRAR LOS CURSOS DEL ARRAY cursosTotales nuevamente
-let btnVolver = document.getElementById("btnVolver");
 
 btnBuscarC.onclick = (e) => {
     e.preventDefault();
