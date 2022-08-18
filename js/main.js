@@ -1,7 +1,7 @@
-// ARRAY CONTENEDOR DE CURSOS
-// let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-
+let usuarios = [{
+    nombre: "coderhouse",
+    apellido: "javascript"
+}]
 
 // ------------------------------
 
@@ -139,41 +139,11 @@ let btnVolver = document.getElementById("btnVolver");
 
 // --------------------------------
 
-let usuarios = [{
-    nombre: "coderhouse",
-    apellido: "javascript"
-}]
-
 buscarCursoContainer.style.display = "none";
 controlBox.style.display = "none";
 loginBox.style.display = "block";
 btnIniciarSesion.style.display = "block";
 btnCerrarSesion.style.display = "none";
-
-btnIniciarSesionForm.onclick = (e) => {
-    e.preventDefault();
-    iniciarTodo();
-}
-
-const iniciarTodo = () => {
-    let nombreUsuarioValue = nombreUsuario.value;
-    let apellidoUsuarioValue = apellidoUsuario.value;
-    console.log(nombreAlumnoValue);
-    console.log(apellidoAlumnoValue);
-    controlBox.style.display = "none";
-    if (nombreUsuarioValue == usuarios[0].nombre && apellidoUsuarioValue == usuarios[0].apellido) {
-        controlBox.style.display = "block";
-        btnIniciarSesion.style.display = "none";
-        iniciarSesionBox.style.display = "none";
-        btnCerrarSesion.style.display = "inline-block";
-        cargarCursos();
-        cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
-        cargarCursosLocal();
-        Swal.fire("hola!")
-    } else {
-        Swal.fire("Datos incorrectos");
-    }
-}
 
 btnCerrarSesion.onclick = () => {
     window.location.reload()
@@ -187,19 +157,6 @@ btnIniciarSesion.onclick = (e) => {
     buscarCursoContainer.style.display = "none";
     iniciarSesionBox.style.display = "block";
 }
-
-// if (usuarios.length === 0) {
-//     // Swal.fire("Array de usuarios vacio");
-//     console.log(usuarios);
-
-
-// } else {
-//     console.log(usuarios);
-//     // Swal.fire("Array de usuarios, contiene algo");
-//     loginBox.style.display = "block";
-//     btnIniciarSesion.style.display = "block";
-//     controlBox.style.display = "block";
-// }
 
 btnCrearUsuario.onclick = (e) => {
     e.preventDefault();
@@ -483,6 +440,27 @@ const fnCrearUsuario = () => {
     }
 }
 
+// FUNCION PARA CARGAR TODA LA PAGINA
+const iniciarTodo = () => {
+    let nombreUsuarioValue = nombreUsuario.value;
+    let apellidoUsuarioValue = apellidoUsuario.value;
+    console.log(nombreAlumnoValue);
+    console.log(apellidoAlumnoValue);
+    controlBox.style.display = "none";
+    if (nombreUsuarioValue == usuarios[0].nombre && apellidoUsuarioValue == usuarios[0].apellido) {
+        controlBox.style.display = "block";
+        btnIniciarSesion.style.display = "none";
+        iniciarSesionBox.style.display = "none";
+        btnCerrarSesion.style.display = "inline-block";
+        cargarCursos();
+        cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
+        cargarCursosLocal();
+        Swal.fire("hola!")
+    } else {
+        Swal.fire("Datos incorrectos");
+    }
+}
+
 // --------------------------------
 
 ///// ASIGNACION DE EVENTOS A VARIABLES /////
@@ -590,13 +568,16 @@ btnAgregarAlumno.onclick = () => {
     }
 }
 
+btnIniciarSesionForm.onclick = (e) => {
+    e.preventDefault();
+    iniciarTodo();
+}
+
 btnAgregarAyC.onclick = () => {
     agregarAyC(alumnosObjeto);
     agregarAlumnosFormBox.style.display = "none";
     alumnosAgregadosBox.style.display = "none";
 }
-
-
 
 btnBuscarC.onclick = (e) => {
     e.preventDefault();
@@ -648,3 +629,7 @@ let tituloColumnaR = document.querySelector(".tituloAñadidos");
 // mostramos en la parte derecha lo que encontro cambiando el texto de la etiqueta <p> que primeramente dice "cursos añadidos", la cambiamos por "cursos encontrados" e inyectamos un contenedor con <p> que tengan los cursos buscados, usando un forEach de el array de cursos buscados que se busco
 
 // mostrar un boton al lado de cada curso para ver los alumnos que hay
+
+
+
+
