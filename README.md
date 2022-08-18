@@ -1,14 +1,12 @@
 # Proyecto  -  Javascript CoderHouse
 
-## Desafio entregable | Librerias
+## Desafio entregable | Fetch
 
-- Se aplicó la libreria Sweet Alert para mostrar alertas en caso de que falte algun dato en los inputs. (Linea 276, 294, 308, 349 y 353)
+- Se aplicó FETCH, trayendo de un archivo relativo los cursos e inyectandolos en el HTML
 
 ## Otros aspectos 
 
-- Se ordeno el codigo.
-- Se pulieron los comentarios para explicar cada parte del codigo
-- Se optimizaron funciones
+- En proceso, desarrollo de login.
 
 # Autor
 * Gonzalo Ramos
