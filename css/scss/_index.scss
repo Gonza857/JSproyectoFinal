@@ -1,11 +1,17 @@
 .navBarMod {
-    background-image: linear-gradient(to top, #93bfb7, #69aaaa);
+    background: linear-gradient(115deg, #00063b, #0010a3);
     border-bottom: 0.5px solid #000;
 
     #añadirCurso,
     #eliminarCurso,
-    #guardarCurso {
+    #guardarCurso,
+    #buscarCurso,
+    #buscarAlumno,
+    #iniciarSesion,
+    #crearUsuario,
+    #cerrarSesion {
         font-size: 1.5rem;
+        color: #fff;
     }
 }
 
@@ -45,4 +51,8 @@ body {
     .holder1 {
         border: 2px solid blue;
     }
+}
+
+.bordeRojo {
+    border: 1px solid red;
 }

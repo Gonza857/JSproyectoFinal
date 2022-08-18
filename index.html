@@ -19,20 +19,50 @@
     <title>Pre Entrega 1</title>
 </head>
 
-<body class="container-fluid justify-content-center">
+<body class="d-flex flex-column flex-wrap align-content-center">
     <!-- ////////// NAVBAR //////////  -->
-    <nav class="row bg-primary navBarMod justify-content-center py-2">
-        <header class="col-10 d-flex flex-wrap justify-content-around">
-            <button class="btn añadirBtn" id="añadirCurso">Añadir curso</button>
-            <button class="btn eliminarBtn" id="eliminarCurso">Eliminar curso</button>
-            <button class="btn eliminarBtn" id="eliminarCurso">Buscar curso</button>
+    <nav class="row bg-primary navBarMod py-2 col-12 m-0">
+        <header class="">
+            <div class="col-10 d-flex flex-wrap justify-content-around m-auto navBtnBox">
+                <div id="controlBox">
+                    <button class="btn" id="añadirCurso">Añadir curso</button>
+                    <button class="btn" id="eliminarCurso">Eliminar curso</button>
+                    <button class="btn" id="buscarCurso">Buscar curso</button>
+                    <button class="btn" id="buscarAlumno">Buscar alumno</button>
+                </div>
+                <div class="loginBox" id="loginBox">
+                    <button class="btn" id="iniciarSesion">Iniciar sesión</button>
+                    <button class="btn" id="crearUsuario">Crear Usuario</button>
+                    <button class="btn" id="cerrarSesion">Cerrar sesion</button>
+                </div>
+            </div>
         </header>
     </nav>
     <!-- ////////// CUERPO //////////  -->
-    <main class="row justify-content-around py-2 mx-1 mx-lg-5">
+    <main class="row align-self-center my-1 col-md-10 col-lg-8">
         <!-- ////////// SECTION - PARA MOSTRAR FORMULARIOS //////////  -->
-        <section class="col-12 col-lg-4 leftCol">
+        <section class="col-12 col-md-4 leftCol">
             <p class="text-center mt-2 ">Datos</p>
+            <!-- FORMULARIO PARA BUSCAR INICIAR SESION   -->
+            <div>
+                <div class="iniciarSesionBox" id="iniciarSesionBox">
+                    <form action="">
+                        <input type="text" id="nombreUsuario" placeholder="Nombre">
+                        <input type="text" id="apellidoUsuario" placeholder="Apellido">
+                        <button class="" id="btnIniciarSesionForm">Iniciar Sesion</button>
+                    </form>
+                </div>
+            </div>
+            <!-- FORMULARIO PARA CREAR USUARIO   -->
+            <div>
+                <div class="crearUsuarioBox" id="crearUsuarioBox">
+                    <form action="">
+                        <input type="text" id="nombreCrearUsuario" placeholder="Nombre">
+                        <input type="text" id="apellidoCrearUsuario" placeholder="Apellido">
+                        <button id="btnCrearUsuarioForm">Crear usuario</button>
+                    </form>
+                </div>
+            </div>
             <!-- ----- FORMULARIO PARA PREGUNTAR SI AÑADIR ALUMNOS -->
             <div id="preguntarContainer" class="text-center py-2">
                 <p id="preguntarAñadir">¿Desea añadir alumnos?</p>
@@ -48,7 +78,7 @@
                     </div>
                 </form>
                 <div class="d-flex flex-wrap justify-content-center mt-2">
-                    <button class="btn bg-primary col-5 mx-2" id="btnAgregarAlumno" >Agregar Alumno</button>
+                    <button class="btn bg-primary col-5 mx-2" id="btnAgregarAlumno">Agregar Alumno</button>
                     <button class="btn bg-danger col-5 mx-2" id="btnAgregarAyC">Finalizar</button>
                 </div>
             </div>
@@ -96,9 +126,31 @@
                     </div>
                 </form>
             </div>
+            <!-- FORMULARIO PARA BUSCAR UN CURSO -->
+            <div class="" id="buscarCursoContainer">
+                <p class="text-center">¿Que curso buscas?</p>
+                <div id="buscarCursoForm">
+                    <form id="">
+                        <input type="text" id="buscarCursoAño">
+                        <input type="text" id="buscarCursoDivision">
+                        <button id="btnBuscarC">Buscar</button>
+                        <button id="btnVolver">Volver</button>
+                    </form>
+                </div>
+            </div>
+            <!-- FORMULARIO PARA BUSCAR UN CURSO -->
+            <div>
+                <p></p>
+                <div>
+                    <form action="">
+
+                    </form>
+                </div>
+            </div>
+
         </section>
         <!-- ////////// SECCION PARA VER CURSOS //////////  -->
-        <section class="col-12 rightCol mt-2" id="cursosContainer">
+        <section class="col-12 col-md-8 rightCol mt-2 mt-md-0" id="cursosContainer">
             <p class="text-center mt-2 tituloAñadidos">Cursos añadidos</p>
             <div class="existentes" id="cursosBox">
 
@@ -106,10 +158,10 @@
         </section>
     </main>
     <!-- ////////// FOOTER //////////  -->
-    <footer class="footer py-4">
+    <footer class="row footer py-4">
         <div class="row justify-content-around">
-            <p class="col-5 text-center my-auto">Curso de Javascript CoderHouse 2022</p>
-            <p class="col-5 text-center my-auto">En desarrollo por Gonzalo Ramos</p>
+            <p class="col-12 col-md-5 text-center my-md-auto">Curso de Javascript CoderHouse 2022</p>
+            <p class="col-12 col-md-5 text-center mt-1 my-md-auto">En desarrollo por Gonzalo Ramos</p>
         </div>
     </footer>
     <!-- BOOTSTRAP -->

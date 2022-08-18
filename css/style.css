@@ -8,13 +8,19 @@
 }
 
 .navBarMod {
-  background-image: linear-gradient(to top, #93bfb7, #69aaaa);
+  background: linear-gradient(115deg, #00063b, #0010a3);
   border-bottom: 0.5px solid #000;
 }
 .navBarMod #añadirCurso,
 .navBarMod #eliminarCurso,
-.navBarMod #guardarCurso {
+.navBarMod #guardarCurso,
+.navBarMod #buscarCurso,
+.navBarMod #buscarAlumno,
+.navBarMod #iniciarSesion,
+.navBarMod #crearUsuario,
+.navBarMod #cerrarSesion {
   font-size: 1.5rem;
+  color: #fff;
 }
 
 main .leftCol {
@@ -48,6 +54,13 @@ body {
   border: 2px solid blue;
 }
 
+.bordeRojo {
+  border: 1px solid red;
+}
+
 .footer {
-  background-image: linear-gradient(to left, #477373, #93bfb7);
+  background: linear-gradient(115deg, #00063b, #0010a3);
+}
+.footer div p {
+  color: #fff;
 }
