@@ -11,17 +11,6 @@
   background: linear-gradient(115deg, #00063b, #0010a3);
   border-bottom: 0.5px solid #000;
 }
-.navBarMod #añadirCurso,
-.navBarMod #eliminarCurso,
-.navBarMod #guardarCurso,
-.navBarMod #buscarCurso,
-.navBarMod #buscarAlumno,
-.navBarMod #iniciarSesion,
-.navBarMod #crearUsuario,
-.navBarMod #cerrarSesion {
-  font-size: 1.5rem;
-  color: #fff;
-}
 
 main .leftCol {
   border: 0.5px solid #000;
@@ -56,6 +45,205 @@ body {
 
 .bordeRojo {
   border: 1px solid red;
+}
+
+.bordeAmarillo {
+  border: 2px solid yellow;
+}
+
+#nombreUsuario,
+#apellidoUsuario,
+#año,
+#division,
+#turno,
+#buscarCursoAño,
+#buscarCursoDivision,
+.inputStyle {
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #e8e8e8;
+  box-shadow: 6px 6px 12px #323b94, -6px -6px 12px #c5c5c5;
+  font-size: medium;
+  max-width: 200px;
+}
+#nombreUsuario:focus,
+#apellidoUsuario:focus,
+#año:focus,
+#division:focus,
+#turno:focus,
+#buscarCursoAño:focus,
+#buscarCursoDivision:focus,
+.inputStyle:focus {
+  outline-color: #323b94;
+}
+
+.btn {
+  background-color: #2626ba;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 10em;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn:hover:not(:disabled) {
+  background: #203089;
+  color: #fff;
+}
+
+.btn-ver {
+  background-color: #2626ba;
+  border: none;
+  width: 3rem;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-ver:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-ver:hover:not(:disabled) {
+  background: #203089;
+  color: #fff;
+}
+
+.btn-mod {
+  background-color: #ce5c04;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 10em;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-mod:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-mod:hover:not(:disabled) {
+  background: #773400;
+  color: #fff;
+}
+
+.btn-red {
+  background-color: #940000;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-red:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-red:hover:not(:disabled) {
+  background: #650000;
+  color: #fff;
+}
+
+.btn-green {
+  background-color: #009f28;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-green:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-green:hover:not(:disabled) {
+  background: #017903;
+  color: #fff;
+}
+
+.btn-x {
+  background-color: #bb0000;
+  border: none;
+  margin-left: 15px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-x:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-x:hover:not(:disabled) {
+  background: #203089;
+  color: #fff;
+}
+
+.esconder {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+
+.iconoOjo {
+  width: 25px;
+  height: 25px;
+  color: #fff;
+}
+
+.navBarButtons {
+  background-color: #2626ba;
+  border: none;
+  font-size: 1rem;
+  width: 10em;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+@media (min-width: 320px) {
+  .navBarButtons {
+    width: auto;
+    padding: 5px 20px;
+  }
+}
+@media (min-width: 425px) {
+  .navBarButtons {
+    width: auto;
+    padding: 10px 25px;
+  }
+}
+.navBarButtons:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.navBarButtons:hover:not(:disabled) {
+  background: #203089;
+  color: #fff;
 }
 
 .footer {
