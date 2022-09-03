@@ -28,13 +28,13 @@
     <header class="row bg-primary navBarMod py-2 col-12 m-0 justify-content-between">
         <nav class="col-12 d-flex flex-row flex-wrap justify-content-around m-auto navBtnBox bordeRojo">
             <div class="flex-row flex-wrap justify-content-evenly bordeAmarillo" id="controlBox">
-                <button class="navBarButtons my-1 mx-1" id="buscarAlumno">Buscar alumno</button>
-                <button class="navBarButtons my-1 mx-1" id="buscarCurso">Buscar curso</button>
+                <button class="navBarButtons my-1 mx-1" id="btnNavBuscarAlumno">Buscar alumno</button>
+                <button class="navBarButtons my-1 mx-1" id="btnNavBuscarCurso">Buscar curso</button>
                 <button class="navBarButtons my-1 mx-1" id="eliminarCurso">Eliminar curso</button>
-                <button class="navBarButtons my-1 mx-1" id="añadirCurso">Añadir curso</button>
+                <button class="navBarButtons my-1 mx-1" id="btnNavAgregarCursos">Añadir curso</button>
             </div>
             <div class="flex-row flex-wrap justify-content-center bordeAmarillo" id="loginBox">
-                <button class="btn-mod m-auto" id="cerrarSesion">Cerrar sesion</button>
+                <button class="btn-mod m-auto" id="btnNavCerrarSesion">Cerrar sesion</button>
                 <button class="btn-mod m-auto" id="iniciarSesion">Iniciar sesión</button>
                 <button class="btn-mod m-auto" id="crearUsuario">Crear Usuario</button>
             </div>
@@ -44,7 +44,7 @@
     <main class="row align-self-center my-1 col-md-12 col-lg-10">
         <!-- ////////// SECTION - PARA MOSTRAR FORMULARIOS //////////  -->
         <section class="col-12 col-md-4 leftCol" id="leftCol">
-            <p class="text-center mt-2 ">Datos</p>
+            <p class="text-center mt-2">Menu</p>
             <div id="contenidoLeftCol">
                 <!-- FORMULARIO PARA BUSCAR INICIAR SESION   -->
                 <div>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <!-- ----- FORMULARIO PARA AÑADIR ALUMNOS -->
-                <div id="agregarAlumnosFormBox" class="row">
+                <div id="agregarAlumnosContainer" class="row">
                     <form id="agregarAlumnosForm">
                         <div id="agregarAlumnosInputs" class="row justify-content-center">
                             <input type="text" class="mt-1 col-10 px-1 inputStyle text-center" id="nombreAlumno"
@@ -114,12 +114,17 @@
                 </div>
                 <!-- FORMULARIO PARA ELIMINAR CURSOS -->
                 <div id="eliminarCursoContainer" class="mt-2">
-                    <form action="" id="deleteForm" class="row flex-wrap justify-content-center">
+                    <p class="text-center m-0">Datos del curso a eliminar</p>
+                    <form id="eliminarCursoForm" class="row flex-wrap justify-content-center">
                         <div class="row justify-content-around">
-                            <!-- <label for="añoBorrar">Año</label> -->
-                            <input type="text" id="añoBorrar" placeholder="Año a borrar" class="col-5">
-                            <!-- <label for="divisionBorrar">Division</label> -->
-                            <input type="text" id="divisionBorrar" placeholder="Division a borrar" class="col-6">
+                            <div class="mt-2">
+                                <label for="añoBorrar" class="col-3">Año</label>
+                                <input type="text" id="añoBorrar" placeholder="Año a borrar" class="inputStyle col-8">
+                            </div>
+                            <div class="mt-2">
+                                <label for="divisionBorrar" class="col-3">Division</label>
+                                <input type="text" id="divisionBorrar" placeholder="Division a borrar" class="inputStyle col-8">
+                            </div>
                         </div>
                         <div class="row mt-2 justify-content-center">
                             <button class="btn bg-danger text-white col-4" id="btnBorrarCurso">Borrar</button>
@@ -127,52 +132,57 @@
                     </form>
                 </div>
                 <!-- FORMULARIO PARA BUSCAR UN CURSO -->
-                <div class="" id="buscarCursoBox">
-                    <p class="text-center">¿Que curso buscas?</p>
+                <div id="buscarCursoContainer">
+                    <p class="text-center m-0">¿Que curso buscas?</p>
                     <div id="buscarCursoForm">
-                        <form id="">
-                            <input type="text" id="buscarCursoAño">
-                            <input type="text" id="buscarCursoDivision">
-                            <button id="btnBuscarC">Buscar</button>
-                            <button id="btnVolver">Volver</button>
+                        <form class="d-flex flex-column flex-wrap align-content-center">
+                            <input type="text" class="mt-2 inputStyle" id="buscarCursoAño">
+                            <input type="text" class="mt-2 inputStyle" id="buscarCursoDivision">
+                            <div class="my-3 d-flex justify-content-evenly">
+                                <button class="btn-mod1" id="btnBuscarC">Buscar</button>
+                                <button class="btn-mod2" id="btnVolver">Volver</button>
+                            </div>
                         </form>
                     </div>
                 </div>
                 <!-- FORMULARIO PARA BUSCAR UN ALUMNO -->
-                <div class="" id="buscarAlumnoBox">
-                    <p class="text-center">¿Que alumno buscas?</p>
+                <div id="buscarAlumnoContainer">
+                    <p class="text-center m-0">¿Que alumno buscas?</p>
                     <div id="buscarAlumnoForm">
-                        <form id="">
-                            <input type="text" class="inputStyle" id="buscarAlumnoNombre">
-                            <input type="text" class="inputStyle" id="buscarAlumnoApellido">
-                            <button id="btnBuscarA">Buscar</button>
-                            <button id="btnVolverA">Volver</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- FORMULARIO PARA BDITAR CURSO-->
-                <div id="editarCursoBox">
-                    <p id="textoEditado"></p>
-                    <div id="editarCursoForm">
-                        <form action="" class="text-center d-flex flex-wrap justify-content-between pb-2" id="editarCurso">
-                                <div class="col-3">
-                                    <label for="año">Año</label>
-                                    <input type="text" class="input-group my-1 py-1 px-2 text-center" id="editarCursoAño">
-                                </div>
-                                <div class="col-3">
-                                    <label for="division">Division</label>
-                                    <input type="text" class="input-group my-1 py-1 px-2 text-center col-4" id="editarCursoDivision">
-                                </div>
-                                <div class="col-5">
-                                    <label for="turno">Turno</label>
-                                    <input type="text" class="input-group my-1 py-1 px-2 col-4 text-center" id="editarCursoTurno">
-                                </div>
-                            <div class="row justify-content-center">
-                                <button class="mt-2 col-12 btn-mod" id="btnEditarCursoGuardar">Guardar</button>
-                                <button class="btn bg-primary text-white mt-2 col-5" id="btnEditarCursoCancelar">Cancelar</button>
+                        <form class="d-flex flex-column flex-wrap align-content-center">
+                            <input type="text" class="mt-2 inputStyle" id="buscarAlumnoNombre">
+                            <input type="text" class="mt-2 inputStyle" id="buscarAlumnoApellido">
+                            <div class="mt-3 d-flex justify-content-evenly">
+                                <button class="btn-mod1" id="btnBuscarA">Buscar</button>
+                                <button class="btn-mod2" id="btnVolverA">Volver</button>
                             </div>
                         </form>
                     </div>
+                </div>
+                <!-- FORMULARIO PARA EDITAR CURSO-->
+                <div id="editarCursoContainer">
+                    <p id="textoEditado"></p>
+                    <form class="text-center d-flex flex-wrap justify-content-between pb-2" id="editarCursoForm">
+                        <div class="col-3">
+                            <label for="año">Año</label>
+                            <input type="text" class="input-group my-1 py-1 px-2 text-center" id="editarCursoAño">
+                        </div>
+                        <div class="col-3">
+                            <label for="division">Division</label>
+                            <input type="text" class="input-group my-1 py-1 px-2 text-center col-4"
+                                id="editarCursoDivision">
+                        </div>
+                        <div class="col-5">
+                            <label for="turno">Turno</label>
+                            <input type="text" class="input-group my-1 py-1 px-2 col-4 text-center"
+                                id="editarCursoTurno">
+                        </div>
+                        <div class="row justify-content-center">
+                            <button class="mt-2 col-12 btn-mod" id="btnEditarCursoGuardar">Guardar</button>
+                            <button class="btn bg-primary text-white mt-2 col-5"
+                                id="btnEditarCursoCancelar">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

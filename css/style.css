@@ -246,6 +246,33 @@ body {
   color: #fff;
 }
 
+.oculto {
+  display: none;
+}
+
+.btn-mod1, .btn-mod2 {
+  background-color: #2626ba;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 1rem;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0.1rem #dfd9d9;
+  cursor: pointer;
+}
+.btn-mod1:active, .btn-mod2:active {
+  color: white;
+  box-shadow: 0 0.2rem #000;
+  transform: translateY(0.2rem);
+}
+.btn-mod1:hover:not(:disabled), .btn-mod2:hover:not(:disabled) {
+  background: #203089;
+  color: #fff;
+}
+
+.btn-mod2 {
+  background-color: #ce5c04;
+}
+
 .footer {
   background: linear-gradient(115deg, #00063b, #0010a3);
 }

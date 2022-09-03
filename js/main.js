@@ -24,16 +24,75 @@ let apellidoAlumnoValue;
 ///// ASIGNACION DE NODOS A VARIABLES /////
 
 // -------- NAVBAR --------
+
 // CONTENEDOR DE BOTONES FUNCIONALES
 let controlBox = document.getElementById("controlBox");
 controlBox.style.display = "none";
+
 // BOTONES
-// BOTON MOSTRAR FORMULARIO PARA ELIMINAR CURSO (FUNCIONA CON LOS DEL LOCAL STORAGE)
-let btnEliminarCursos = document.getElementById("eliminarCurso");
+// BOTON MOSTRAR FORMULARIO PARA BUSCAR ALUMNOS
+let btnNavBuscarAlumno = document.getElementById("btnNavBuscarAlumno");
+btnNavBuscarAlumno.onclick = (e) => {
+    e.preventDefault();
+    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
+    crearCursoContainer.style.display = "none";
+    preguntarContainer.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
+    // FORM MODIFICAR CURSO
+    editarCursoContainer.style.display = "none";
+    // FORM ELIMINAR CURSO 
+    eliminarCursoContainer.style.display = "none";
+    // FORM BUSCAR CURSO
+    buscarCursoContainer.style.display = "none";
+    // FORM BUSCAR ALUMNO
+    buscarAlumnoContainer.style.display = "block";
+}
+
 // BOTON MOSTRAR FORMULARIO PARA AÑADIR CURSO
-let btnAgregarCursos = document.getElementById("añadirCurso");
+let btnNavAgregarCursos = document.getElementById("btnNavAgregarCursos");
+btnNavAgregarCursos.onclick = (e) => {
+    e.preventDefault();
+    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
+    crearCursoContainer.style.display = "block";
+    preguntarContainer.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
+    // FORM MODIFICAR CURSO
+    editarCursoContainer.style.display = "none";
+    // FORM ELIMINAR CURSO 
+    eliminarCursoContainer.style.display = "none";
+    // FORM BUSCAR CURSO
+    buscarCursoContainer.style.display = "none";
+    // FORM BUSCAR ALUMNO
+    buscarAlumnoContainer.style.display = "none";
+}
+
+// BOTON MOSTRAR FORMULARIO PARA ELIMINAR CURSO (FUNCIONA CON LOS DEL LOCAL STORAGE)
+let btnNavEliminarCursos = document.getElementById("eliminarCurso");
+
+// BOTON BUSCAR CURSO
+let btnNavBuscarCurso = document.getElementById("btnNavBuscarCurso");
+btnNavBuscarCurso.onclick = (e) => {
+    e.preventDefault();
+    // FORM BUSCAR ALUMNO
+    buscarAlumnoContainer.style.display = "none";
+    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
+    crearCursoContainer.style.display = "none";
+    preguntarContainer.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
+    // FORM MODIFICAR CURSO
+    editarCursoContainer.style.display = "none";
+    // FORM ELIMINAR CURSO 
+    eliminarCursoContainer.style.display = "none";
+    // FORM BUSCAR CURSO
+    buscarCursoContainer.style.display = "block";
+}
+
 // BOTON CERRAR SESION
-let btnCerrarSesion = document.getElementById("cerrarSesion");
+let btnNavCerrarSesion = document.getElementById("btnNavCerrarSesion");
+btnNavCerrarSesion.onclick = (e) => {
+    e.preventDefault();
+    borrarSesion();
+}
 
 // CONTENEDOR DE BOTONES PARA LOGIN
 let loginBox = document.getElementById("loginBox");
@@ -80,8 +139,8 @@ let agregarAlumnosBox = document.getElementById("agregarAlumnosBox");
 // BOTON
 let agregarAlumnosBtn = document.getElementById("agregarAlumnosBtn");
 //FORM CONTENEDOR DE INPUTS
-let agregarAlumnosFormBox = document.getElementById("agregarAlumnosFormBox");
-agregarAlumnosFormBox.style.display = "none";
+let agregarAlumnosContainer = document.getElementById("agregarAlumnosContainer");
+agregarAlumnosContainer.style.display = "none";
 // INPUTS
 // CONTENEDOR DE INPUTS
 let nombreAlumno = document.getElementById("nombreAlumno");
@@ -128,7 +187,7 @@ alumnosAgregadosBox.style.display = "none";
 // DESARROLLO PARA BUSCAR CURSOS
 
 // CONTENEDOR FORMULARIO BUSCAR CURSO
-let buscarCursoBox = document.getElementById("buscarCursoBox");
+let buscarCursoContainer = document.getElementById("buscarCursoContainer");
 // FORMULARIO
 // INPUTS
 let buscarCursoAño = document.getElementById("buscarCursoAño");
@@ -227,12 +286,15 @@ const actualizarLocal = () => {
     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
+// CONTENEDOR 
+let editarCursoContainer = document.getElementById("editarCursoContainer");
+editarCursoContainer.style.display = "none";
 // CONTENEDOR FORM
 let textoEditado = document.getElementById("textoEditado")
 let editarCursoForm = document.getElementById("editarCursoForm");
 editarCursoForm.style.display = "none"
 // FORM
-let editarCurso = document.getElementById("editarCurso");
+let btnNavEditarCurso = document.getElementById("editarCurso");
 // INPUTS
 let editarCursoAño = document.getElementById("editarCursoAño");
 let editarCursoDivision = document.getElementById("editarCursoDivision");
@@ -356,9 +418,15 @@ const sumarHTML = (el) => {
     cursosBox.appendChild(cursoCreado);
     btnEditar.onclick = (e) => {
         e.preventDefault();
-        editarCursoForm.style.display = "block";
-        textoEditado.textContent = el.infoFull;
-        console.log(el.infoFull)
+        buscarCursoContainer.style.display = "none";
+
+        editarCursoContainer.style.display = "block";
+        crearCursoContainer.style.display = "none";
+        eliminarCursoContainer.style.display = "none";
+
+        textoEditado.textContent = `Estas editando el curso ${el.año} division ${el.division} y turno ${el.turno}`;
+        console.log(el.infoFull);
+        buscarCursoContainer.classList.add("esconder");
         btnEditarCursoGuardar.onclick = (e) => {
             e.preventDefault()
             let editarCursoAñoValue = editarCursoAño.value;
@@ -384,26 +452,6 @@ const sumarHTML = (el) => {
         editarCursoDivision.value = "";
         editarCursoTurno.value = "";
     }
-}
-
-// FUNCION QUE MUESTRA EL FORMULARIO PARA AGREGAR
-const cargarFormularioAgregarC = () => {
-    agregarAlumnosFormBox.style.display = "none";
-    crearCursoContainer.style.display = "block"
-    eliminarCursoContainer.style.display = "none";
-    btnAgregarA.style.display = "none";
-    alumnosAgregadosBox.style.display = "none";
-    preguntarContainer.style.display = "none";
-    buscarCursoBox.classList.add("esconder");
-}
-
-// FUNCION QUE ESCONDE EL FORMULARIO PARA AGREGAR Y MUESTRA EL DE ELIMINAR
-const cargarFormularioEliminarC = () => {
-    crearCursoContainer.style.display = "none";
-    eliminarCursoContainer.style.display = "block";
-    agregarAlumnosFormBox.style.display = "none";
-    preguntarContainer.style.display = "none";
-    buscarCursoBox.classList.add("esconder");
 }
 
 // FUNCION QUE AGREGA ALUMNOS Y CURSO AL HTML
@@ -465,7 +513,7 @@ const verificarRegistrado = (nombreUsuarioValue, apellidoUsuarioValue) => {
     if (buscar) {
         controlBox.style.display = "flex";
         btnIniciarSesion.style.display = "none"
-        btnCerrarSesion.style.display = "block";
+        btnNavCerrarSesion.style.display = "block";
         iniciarSesionBox.style.display = "none";
         contenidoLeftCol.style.display = "block";
         cargarCursosFetch();
@@ -493,11 +541,29 @@ const borrarSesion = () => {
 
 ///// ASIGNACION DE EVENTOS A VARIABLES /////
 
-// MOSTRAR FORMULARIO PARA AGREGAR CURSO
-btnAgregarCursos.addEventListener("click", cargarFormularioAgregarC);
+
 
 // MOSTRAR FORMULARIO PARA ELIMINAR CURSOS
-btnEliminarCursos.addEventListener("click", cargarFormularioEliminarC);
+btnNavEliminarCursos.onclick = (e) => {
+    e.preventDefault();
+
+    // FORM BUSCAR ALUMNO
+    buscarAlumnoContainer.style.display = "none";
+
+    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
+    crearCursoContainer.style.display = "none";
+    preguntarContainer.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
+
+    // FORM BUSCAR CURSO
+    buscarCursoContainer.style.display = "none";
+
+    // FORM MODIFICAR CURSO
+    editarCursoContainer.style.display = "none";
+
+    // FORM ELIMINAR CURSO MOSTRAR
+    eliminarCursoContainer.style.display = "block";
+}
 
 /* BORRAR CURSOS
 1) REMUEVE EL CURSO INSERTADO DEL LOCAL STORAGE
@@ -561,7 +627,7 @@ btnAgregar.onclick = (e) => {
 si.onclick = (e) => {
     e.preventDefault();
     // MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
-    agregarAlumnosFormBox.style.display = "block";
+    agregarAlumnosContainer.style.display = "block";
     btnAgregarA.style.display = "block";
     preguntarContainer.style.display = "none";
     alumnosAgregadosBox.style.display = "block"
@@ -611,7 +677,7 @@ btnAgregarAyC.onclick = () => {
     cursosTotales.forEach((curso) => {
         sumarHTML(curso);
     })
-    agregarAlumnosFormBox.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
     alumnosAgregadosBox.style.display = "none";
 }
 
@@ -632,20 +698,10 @@ btnBuscarC.onclick = (e) => {
 btnVolver.onclick = () => {
     cursosBox.innerHTML = "";
     cursosTotales.forEach((curso) => sumarHTML(curso))
-    buscarCursoBox.classList.add("esconder");
+    buscarCursoContainer.style.display = "none";
 }
 
-buscarCurso.onclick = (e) => {
-    e.preventDefault();
-    agregarAlumnosFormBox.style.display = "none";
-    crearCursoContainer.style.display = "none"
-    eliminarCursoContainer.style.display = "none";
-    btnAgregarA.style.display = "none";
-    alumnosAgregadosBox.style.display = "none";
-    preguntarContainer.style.display = "none";
-    buscarCursoBox.classList.add("mostrar");
 
-}
 
 // tomamos el <p> (titulo) del rightCol
 let tituloColumnaR = document.querySelector(".tituloAñadidos");
@@ -661,7 +717,7 @@ console.log(inicio);
 if (inicio) {
     console.log("Hay un usuario")
     loginBox.style.display = "flex";
-    btnCerrarSesion.style.display = "block"
+    btnNavCerrarSesion.style.display = "block"
     btnIniciarSesion.style.display = "none";
     controlBox.style.display = "flex";
     cargarCursosFetch();
@@ -670,11 +726,11 @@ if (inicio) {
         sumarHTML(curso);
     })
 } else {
-    console.log("No entro nadie antes")
-    buscarCursoBox.classList.add("esconder");
+    console.log("No entro nadie antes");
+    buscarCursoContainer.style.display = "none";
     loginBox.style.display = "flex";
     btnIniciarSesion.style.display = "block";
-    btnCerrarSesion.style.display = "none";
+    btnNavCerrarSesion.style.display = "none";
 }
 
 btnIniciarSesionForm.onclick = (e) => {
@@ -691,26 +747,17 @@ btnIniciarSesion.onclick = (e) => {
     iniciarSesionBox.style.display = "block";
 }
 
-btnCerrarSesion.onclick = (e) => {
-    e.preventDefault();
-    borrarSesion();
-}
+
 
 // preguntarContainer.style.display = "block";
 
 
 // FORMULARIO PARA BUSCAR ALUMNOS / MUESTRA CURSOS QUE CONTENGAN ESE NOOMBRE Y/O APELLIDO
 // BOTON DE BARRA
-let btnBuscarAlumno = document.getElementById("buscarAlumno");
-btnBuscarAlumno.onclick = (e) => {
-    e.preventDefault();
-    buscarAlumnoBox.classList.add("mostrar");
-    buscarCursoBox.classList.add("esconder");
 
-}
 // CONTENEDOR 
-let buscarAlumnoBox = document.getElementById("buscarAlumnoBox");
-buscarAlumnoBox.classList.add("esconder");
+let buscarAlumnoContainer = document.getElementById("buscarAlumnoContainer");
+buscarAlumnoContainer.style.display = "none";
 // PARRAFO 
 // DIV CONTENEDOR DE FORM
 // FORM
@@ -736,8 +783,8 @@ btnBuscarA.onclick = (e) => {
             console.log("encontre algo");
             resultado.push(curso);
             console.log("SUME UN CURSO AL ARRAY RESULTADO")
-        }
-        console.log(resultado);
+        } else
+            console.log(resultado);
         cursosBox.innerHTML = "";
         resultado.forEach((cursoEncontrado) => {
             sumarHTML(cursoEncontrado);
