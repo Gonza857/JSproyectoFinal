@@ -11,13 +11,16 @@ let registrados = [{
         apellido: "ramos"
     }
 ];
-let alumnosObjeto = [];
 
-// VARIABLES SIN DEFINIR
-let cursosTotales = [];
+// VARIABLES SIN VALOR DEFINIDO
 let arrayAlumnos;
 let nombreAlumnoValue;
 let apellidoAlumnoValue;
+
+// VARIABLES CON ARRAYS VACIOS
+let alumnosObjeto = [];
+let cursosTotales = [];
+let fetchCursos = [];
 
 // --------------------------------
 
@@ -68,6 +71,22 @@ btnNavAgregarCursos.onclick = (e) => {
 
 // BOTON MOSTRAR FORMULARIO PARA ELIMINAR CURSO (FUNCIONA CON LOS DEL LOCAL STORAGE)
 let btnNavEliminarCursos = document.getElementById("eliminarCurso");
+// MOSTRAR FORMULARIO PARA ELIMINAR CURSOS
+btnNavEliminarCursos.onclick = (e) => {
+    e.preventDefault();
+    // FORM BUSCAR ALUMNO
+    buscarAlumnoContainer.style.display = "none";
+    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
+    crearCursoContainer.style.display = "none";
+    preguntarContainer.style.display = "none";
+    agregarAlumnosContainer.style.display = "none";
+    // FORM BUSCAR CURSO
+    buscarCursoContainer.style.display = "none";
+    // FORM MODIFICAR CURSO
+    editarCursoContainer.style.display = "none";
+    // FORM ELIMINAR CURSO MOSTRAR
+    eliminarCursoContainer.style.display = "block";
+}
 
 // BOTON BUSCAR CURSO
 let btnNavBuscarCurso = document.getElementById("btnNavBuscarCurso");
@@ -87,6 +106,18 @@ btnNavBuscarCurso.onclick = (e) => {
     buscarCursoContainer.style.display = "block";
 }
 
+// CONTENEDOR DE BOTONES PARA LOGIN
+let loginBox = document.getElementById("loginBox");
+loginBox.style.display = "none";
+
+// BOTONES 
+// BOTON PARA INICIAR SESION
+let btnNavIniciarSesion = document.getElementById("btnNavIniciarSesion");
+btnNavIniciarSesion.onclick = (e) => {
+    e.preventDefault();
+    iniciarSesionBox.style.display = "block";
+}
+
 // BOTON CERRAR SESION
 let btnNavCerrarSesion = document.getElementById("btnNavCerrarSesion");
 btnNavCerrarSesion.onclick = (e) => {
@@ -94,19 +125,13 @@ btnNavCerrarSesion.onclick = (e) => {
     borrarSesion();
 }
 
-// CONTENEDOR DE BOTONES PARA LOGIN
-let loginBox = document.getElementById("loginBox");
-loginBox.style.display = "none";
-// BOTONES 
-// BOTON PARA INICIAR SESION
-let btnIniciarSesion = document.getElementById("iniciarSesion");
-let btnCrearUsuario = document.getElementById("crearUsuario");
-btnCrearUsuario.style.display = "none";
-
 // -------- SECCION PARA VER CURSOS --------
+
+// TITULO DE LA SECCION
+let tituloColumnaR = document.querySelector(".tituloAñadidos");
+
 // DIV CONTAINER DE CURSOS AÑADIDOS Y DIV DE CURSOS
 let cursosBox = document.getElementById("cursosBox");
-// CONTAINER DE CURSOS AGREGADOS
 
 // -------- FORUMLARIO PARA AGREGAR CURSOS --------
 // INPUTS
@@ -147,10 +172,46 @@ let nombreAlumno = document.getElementById("nombreAlumno");
 let apellidoAlumno = document.getElementById("apellidoAlumno");
 let cantidadAlumnos = document.getElementById("cantidadAlumnos");
 // BOTON PARA SUMAR ALUMNOS AL ARRAY 
-let btnAgregarA = document.getElementById("btnAgregarA");
-btnAgregarA.style.display = "none";
-// BOTON PARA SUBIR ALUMNO Y CURSOS AL OBJETO
+let btnAgregarAlumno = document.getElementById("btnAgregarAlumno");
+btnAgregarAlumno.style.display = "none";
+/* BOTON PARA AÑADIR ALUMNO
+1) TOMA LOS VALORES DE LOS INPUTS
+2) SI TIENEN DATOS, Y CREA UN ALUMNO CON UNA CLASE Y LO SUMA AL ARRAY DE ALUMNOS ADEMAS DE MOSTRAR EN EL HTML CUANTOS ALUMNOS MOSTRAMOS
+3) SI NO TIENEN DATOS, TIRO ERROR
+*/
+btnAgregarAlumno.onclick = (e) => {
+    e.preventDefault();
+    alumnosAgregados.style.display = "block";
+    nombreAlumnoValue = nombreAlumno.value;
+    apellidoAlumnoValue = apellidoAlumno.value;
+    if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
+        let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
+        alumnosObjeto.push(alumno);
+        mostrarAlumnos(alumnosObjeto);
+        apellidoAlumno.value = "";
+        nombreAlumno.value = "";
+    } else {
+        Swal.fire("Faltan datos del alumno")
+    }
+}
+// BOTON QUE AGREGA EL ARRAY DE ALUMNOS A LA PROPIEDAD DE ALUMNOS, DEL CURSO POR CREAR
 let btnAgregarAyC = document.getElementById("btnAgregarAyC");
+btnAgregarAyC.onclick = () => {
+    agregarAyC(alumnosObjeto);
+    cursosBox.innerHTML = "";
+    cargarCursosFetch();
+    cursosTotales.forEach((curso) => {
+        sumarHTML(curso);
+    })
+    agregarAlumnosContainer.style.display = "none";
+    alumnosAgregadosBox.style.display = "none";
+    alumnosObjeto = [];
+    alumnosAgregados.innerHTML = "";
+    Swal.fire({
+        icon: "success",
+        text: "¡Se agregó correctamente el curso!"
+    })
+}
 
 // -------- FORMULARIO PARA PREGUNTAR SI QUIERE AÑADIR ALUMNOS --------
 // CONTENEDOR
@@ -173,21 +234,155 @@ let nombreUsuario = document.getElementById("nombreUsuario");
 let apellidoUsuario = document.getElementById("apellidoUsuario");
 // BOTON DEL FORM
 let btnIniciarSesionForm = document.getElementById("btnIniciarSesionForm");
-//----------------------------------------------------------------------------------------------------
+btnIniciarSesionForm.onclick = (e) => {
+    e.preventDefault()
+    let nombreUsuarioValue = nombreUsuario.value.toLowerCase();
+    let apellidoUsuarioValue = apellidoUsuario.value.toLowerCase();
+    verificarRegistrado(nombreUsuarioValue, apellidoUsuarioValue);
+    nombreUsuario.value = "";
+    apellidoUsuario.value = "";
+}
 
-
-
-//----------------------------------------------------------------------------------------------------
-
+// -------- FORMULARIO PARA BUSCAR ALUMNOS --------
+// CONTENEDOR 
+let buscarAlumnoContainer = document.getElementById("buscarAlumnoContainer");
+buscarAlumnoContainer.style.display = "none";
+// INPUTS DEL FORM
+let buscarAlumnoNombre = document.getElementById("buscarAlumnoNombre");
+let buscarAlumnoApellido = document.getElementById("buscarAlumnoApellido");
+// BOTONES
+let btnBuscarA = document.getElementById("btnBuscarA");
+btnBuscarA.onclick = (e) => {
+    tituloColumnaR.textContent = "Nombre o apellido encontrado en estos cursos";
+    e.preventDefault();
+    let buscarAlumnoNombreValue = buscarAlumnoNombre.value.toLowerCase();
+    let buscarAlumnoApellidoValue = buscarAlumnoApellido.value.toLowerCase();
+    let resultado = [];
+    if (buscarAlumnoApellidoValue != "" && buscarAlumnoNombreValue == "") {
+        alert("no escribiste nombre");
+        cursosTotales.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.apellido == buscarAlumnoApellidoValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("SE ENCONTRO UN ALUMNO");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+        fetchCursos.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.apellido == buscarAlumnoApellidoValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("encontre algo");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+    } else if (buscarAlumnoApellidoValue == "" && buscarAlumnoNombreValue != "") {
+        alert("no escribiste apellido");
+        cursosTotales.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.nombre == buscarAlumnoNombreValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("SE ENCONTRO UN ALUMNO");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+        fetchCursos.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.nombre == buscarAlumnoNombreValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("encontre algo");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+    } else {
+        alert("escribiste las 2 cosas");
+        cursosTotales.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.nombre == buscarAlumnoNombreValue || alumno.apellido == buscarAlumnoApellidoValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("SE ENCONTRO UN ALUMNO");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+        fetchCursos.forEach((curso) => {
+            let {
+                alumnos
+            } = curso;
+            let buscaAlumuno = alumnos.filter((alumno) => alumno.nombre == buscarAlumnoNombreValue || alumno.apellido == buscarAlumnoApellidoValue);
+            console.log(buscaAlumuno);
+            console.log(buscaAlumuno.length);
+            if (buscaAlumuno.length > 0) {
+                console.log("encontre algo");
+                resultado.push(curso);
+            }
+            cursosBox.innerHTML = "";
+            resultado.forEach((cursoEncontrado) => {
+                sumarHTML(cursoEncontrado);
+            })
+        })
+    }
+    if (resultado.length == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se encontró al alumno que buscas',
+        })
+        tituloColumnaR.textContent = "No se encontró un alumno con ese nombre y/o apellido";
+    }
+    buscarAlumnoNombre.value = "";
+    buscarAlumnoApellido.value = "";
+    console.log(resultado.length)
+}
 
 // -------- CONTENEDOR DE ALUMNOS AGREGADOS --------
 let alumnosAgregadosBox = document.getElementById("alumnosAgregadosBox");
 alumnosAgregadosBox.style.display = "none";
 
-// DESARROLLO PARA BUSCAR CURSOS
+// -------- FORMULARIO PARA BUSCAR CURSO --------
 
-// CONTENEDOR FORMULARIO BUSCAR CURSO
+// CONTENEDOR FORMULARIO 
 let buscarCursoContainer = document.getElementById("buscarCursoContainer");
+buscarCursoContainer.style.display = "none";
 // FORMULARIO
 // INPUTS
 let buscarCursoAño = document.getElementById("buscarCursoAño");
@@ -197,8 +392,26 @@ let buscarCursoAñoValue;
 let buscarCursoDivisionValue;
 // BOTON PARA BUSCAR
 let btnBuscarC = document.getElementById("btnBuscarC");
+/* BUSCA CURSOS
+1) TOMA LOS VALORES DE INPUTS
+2) BUSCA SI EXISTE Y LO MUESTRA EN EL HTML
+ */
+btnBuscarC.onclick = (e) => {
+    e.preventDefault();
+    buscarCursoAñoValue = buscarCursoAño.value;
+    buscarCursoDivision = buscarCursoDivision.value;
+    let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue && curso.division == buscarCursoDivision);
+    cursosBox.innerHTML = "";
+    cursoBuscado.forEach((curso) => sumarHTML(curso));
+    tituloColumnaR.textContent = "Cursos encontrados";
+}
 // BOTON PARA VOLVER Y MOSTRAR LOS CURSOS DEL ARRAY cursosTotales nuevamente
 let btnVolver = document.getElementById("btnVolver");
+btnVolver.onclick = () => {
+    cursosBox.innerHTML = "";
+    cursosTotales.forEach((curso) => sumarHTML(curso))
+    buscarCursoContainer.style.display = "none";
+}
 
 // --------------------------------
 
@@ -251,6 +464,19 @@ const cargarCursosFetch = async () => {
         let response = await fetch("./cursos.json");
         let result = await response.json();
         result.forEach((el) => {
+            console.log(el.alumnos);
+            let {
+                alumnos
+            } = el;
+            console.log(alumnos);
+            alumnos.forEach((alumno) => {
+                console.log(alumno);
+                alumno.nombre = alumno.nombre.toLowerCase();
+                alumno.apellido = alumno.apellido.toLowerCase();
+                console.log(alumno.nombre);
+                console.log(alumno.apellido)
+            })
+            fetchCursos.push(el);
             sumarHTML(el);
         })
     }
@@ -350,10 +576,12 @@ const sumarHTML = (el) => {
         // asignamos la info del curso
         // por cada alumno lo sumammos a la lista y agregamos su boton
         alumnos.forEach((alum) => {
+            alum.nombre = alum.nombre.toLowerCase();
+            alum.apellido = alum.apellido.toLowerCase();
             // creas li, atributos, contenido
             let alumno = document.createElement("li");
             alumno.setAttribute("class", "alums my-1");
-            alumno.textContent = `${alum.nombre} ${alum.apellido}`;
+            alumno.textContent = `• ${alum.nombre} ${alum.apellido}`;
             // agregas alumno (li) a la lista (ul)
             listaAlumnos.appendChild(alumno)
             // creo button, atributo y contenido
@@ -399,9 +627,9 @@ const sumarHTML = (el) => {
         }
         // BOTON CERRAR
         iconoCerrar = document.createElement("i")
-        iconoCerrar.setAttribute("class", "fas fa-times");
+        iconoCerrar.setAttribute("class", "fas fa-times p-0 m-0");
         btnCerrar = document.createElement("button");
-        btnCerrar.setAttribute("class", "btn-ver")
+        btnCerrar.setAttribute("class", "btn-ver ms-2")
         btnCerrar.appendChild(iconoCerrar);
         divInfoBtn.appendChild(btnCerrar);
         btnCerrar.style.display = "none";
@@ -419,12 +647,14 @@ const sumarHTML = (el) => {
     btnEditar.onclick = (e) => {
         e.preventDefault();
         buscarCursoContainer.style.display = "none";
-
-        editarCursoContainer.style.display = "block";
         crearCursoContainer.style.display = "none";
         eliminarCursoContainer.style.display = "none";
-
-        textoEditado.textContent = `Estas editando el curso ${el.año} division ${el.division} y turno ${el.turno}`;
+        if (editarCursoContainer.style.display == "block") {
+            editarCursoContainer.style.display = "none";
+        } else {
+            editarCursoContainer.style.display = "block";
+        }
+        textoEditado.textContent = `Estas editando el curso ${el.año}°, division ${el.division}° y turno ${el.turno}`;
         console.log(el.infoFull);
         buscarCursoContainer.classList.add("esconder");
         btnEditarCursoGuardar.onclick = (e) => {
@@ -512,7 +742,7 @@ const verificarRegistrado = (nombreUsuarioValue, apellidoUsuarioValue) => {
     let buscar = registrados.some(usuario => usuario.nombre == nombreUsuarioValue && usuario.apellido == apellidoUsuarioValue);
     if (buscar) {
         controlBox.style.display = "flex";
-        btnIniciarSesion.style.display = "none"
+        btnNavIniciarSesion.style.display = "none"
         btnNavCerrarSesion.style.display = "block";
         iniciarSesionBox.style.display = "none";
         contenidoLeftCol.style.display = "block";
@@ -543,27 +773,7 @@ const borrarSesion = () => {
 
 
 
-// MOSTRAR FORMULARIO PARA ELIMINAR CURSOS
-btnNavEliminarCursos.onclick = (e) => {
-    e.preventDefault();
 
-    // FORM BUSCAR ALUMNO
-    buscarAlumnoContainer.style.display = "none";
-
-    // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
-    crearCursoContainer.style.display = "none";
-    preguntarContainer.style.display = "none";
-    agregarAlumnosContainer.style.display = "none";
-
-    // FORM BUSCAR CURSO
-    buscarCursoContainer.style.display = "none";
-
-    // FORM MODIFICAR CURSO
-    editarCursoContainer.style.display = "none";
-
-    // FORM ELIMINAR CURSO MOSTRAR
-    eliminarCursoContainer.style.display = "block";
-}
 
 /* BORRAR CURSOS
 1) REMUEVE EL CURSO INSERTADO DEL LOCAL STORAGE
@@ -628,7 +838,7 @@ si.onclick = (e) => {
     e.preventDefault();
     // MUESTRA EL FORMULARIO PARA AGREGAR ALUMNOS
     agregarAlumnosContainer.style.display = "block";
-    btnAgregarA.style.display = "block";
+    btnAgregarAlumno.style.display = "block";
     preguntarContainer.style.display = "none";
     alumnosAgregadosBox.style.display = "block"
 }
@@ -648,77 +858,17 @@ no.onclick = (e) => {
     localStorage.setItem("cursos", JSON.stringify(cursosTotales));
 }
 
-/* BOTON PARA AÑADIR ALUMNO
-1) TOMA LOS VALORES DE LOS INPUTS
-2) SI TIENEN DATOS, Y CREA UN ALUMNO CON UNA CLASE Y LO SUMA AL ARRAY DE ALUMNOS ADEMAS DE MOSTRAR EN EL HTML CUANTOS ALUMNOS MOSTRAMOS
-3) SI NO TIENEN DATOS, TIRO ERROR
-*/
-btnAgregarAlumno.onclick = (e) => {
-    e.preventDefault();
-    alumnosAgregados.style.display = "block";
-    nombreAlumnoValue = nombreAlumno.value;
-    apellidoAlumnoValue = apellidoAlumno.value;
-    if (nombreAlumnoValue != "" && apellidoAlumnoValue != "") {
-        let alumno = new Alumno(nombreAlumnoValue, apellidoAlumnoValue);
-        alumnosObjeto.push(alumno);
-        mostrarAlumnos(alumnosObjeto);
-        apellidoAlumno.value = "";
-        nombreAlumno.value = "";
-    } else {
-        Swal.fire("Faltan datos del alumno")
-    }
-}
-
-// AGREGA EL ARRAY DE ALUMNOS A LA PROPIEDAD DE ALUMNOS, DEL CURSO POR CREAR
-btnAgregarAyC.onclick = () => {
-    agregarAyC(alumnosObjeto);
-    cursosBox.innerHTML = "";
-    cargarCursosFetch();
-    cursosTotales.forEach((curso) => {
-        sumarHTML(curso);
-    })
-    agregarAlumnosContainer.style.display = "none";
-    alumnosAgregadosBox.style.display = "none";
-}
-
-/* BUSCA CURSOS
-1) TOMA LOS VALORES DE INPUTS
-2) BUSCA SI EXISTE Y LO MUESTRA EN EL HTML
- */
-btnBuscarC.onclick = (e) => {
-    e.preventDefault();
-    buscarCursoAñoValue = buscarCursoAño.value;
-    buscarCursoDivision = buscarCursoDivision.value;
-    let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue && curso.division == buscarCursoDivision);
-    cursosBox.innerHTML = "";
-    cursoBuscado.forEach((curso) => sumarHTML(curso));
-    tituloColumnaR.textContent = "Cursos encontrados";
-}
-
-btnVolver.onclick = () => {
-    cursosBox.innerHTML = "";
-    cursosTotales.forEach((curso) => sumarHTML(curso))
-    buscarCursoContainer.style.display = "none";
-}
 
 
 
-// tomamos el <p> (titulo) del rightCol
-let tituloColumnaR = document.querySelector(".tituloAñadidos");
-
-
-// mostramos en la parte derecha lo que encontro cambiando el texto de la etiqueta <p> que primeramente dice "cursos añadidos", la cambiamos por "cursos encontrados" e inyectamos un contenedor con <p> que tengan los cursos buscados, usando un forEach de el array de cursos buscados que se busco
-
-// mostrar un boton al lado de cada curso para ver los alumnos que hay
 
 let inicio = localStorage.getItem("inicio") || false;
 console.log(inicio);
 
 if (inicio) {
-    console.log("Hay un usuario")
     loginBox.style.display = "flex";
     btnNavCerrarSesion.style.display = "block"
-    btnIniciarSesion.style.display = "none";
+    btnNavIniciarSesion.style.display = "none";
     controlBox.style.display = "flex";
     cargarCursosFetch();
     cursosTotales = JSON.parse(localStorage.getItem("cursos")) || [];
@@ -726,72 +876,8 @@ if (inicio) {
         sumarHTML(curso);
     })
 } else {
-    console.log("No entro nadie antes");
     buscarCursoContainer.style.display = "none";
     loginBox.style.display = "flex";
-    btnIniciarSesion.style.display = "block";
+    btnNavIniciarSesion.style.display = "block";
     btnNavCerrarSesion.style.display = "none";
-}
-
-btnIniciarSesionForm.onclick = (e) => {
-    e.preventDefault()
-    let nombreUsuarioValue = nombreUsuario.value.toLowerCase();
-    let apellidoUsuarioValue = apellidoUsuario.value.toLowerCase();
-    verificarRegistrado(nombreUsuarioValue, apellidoUsuarioValue);
-    nombreUsuario.value = "";
-    apellidoUsuario.value = "";
-}
-
-btnIniciarSesion.onclick = (e) => {
-    e.preventDefault();
-    iniciarSesionBox.style.display = "block";
-}
-
-
-
-// preguntarContainer.style.display = "block";
-
-
-// FORMULARIO PARA BUSCAR ALUMNOS / MUESTRA CURSOS QUE CONTENGAN ESE NOOMBRE Y/O APELLIDO
-// BOTON DE BARRA
-
-// CONTENEDOR 
-let buscarAlumnoContainer = document.getElementById("buscarAlumnoContainer");
-buscarAlumnoContainer.style.display = "none";
-// PARRAFO 
-// DIV CONTENEDOR DE FORM
-// FORM
-// INPUTS
-let buscarAlumnoNombre = document.getElementById("buscarAlumnoNombre");
-let buscarAlumnoApellido = document.getElementById("buscarAlumnoApellido");
-// BOTONES
-let btnBuscarA = document.getElementById("btnBuscarA");
-btnBuscarA.onclick = (e) => {
-    tituloColumnaR.textContent = "Nombre o apellido encontrado en estos cursos";
-    e.preventDefault();
-    let buscarAlumnoNombreValue = buscarAlumnoNombre.value;
-    let buscarAlumnoApellidoValue = buscarAlumnoApellido.value;
-    let resultado = [];
-    cursosTotales.forEach((curso) => {
-        let {
-            alumnos
-        } = curso;
-        let buscaAlumuno = alumnos.filter((alumno) => alumno.nombre == buscarAlumnoNombreValue || alumno.apellido == buscarAlumnoApellidoValue);
-        console.log(buscaAlumuno);
-        console.log(buscaAlumuno.length);
-        if (buscaAlumuno.length > 0) {
-            console.log("encontre algo");
-            resultado.push(curso);
-            console.log("SUME UN CURSO AL ARRAY RESULTADO")
-        } else
-            console.log(resultado);
-        cursosBox.innerHTML = "";
-        resultado.forEach((cursoEncontrado) => {
-            sumarHTML(cursoEncontrado);
-        })
-
-    })
-
-
-
 }

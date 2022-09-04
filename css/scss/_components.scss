@@ -1,0 +1,43 @@
+/*
+btn-mod1 (azul) - usado en:
+form buscar alumno
+form buscar curso
+
+btn-mod2 (naranja) - usado en:
+form buscar alumno
+form buscar curso
+
+btn-mod3 (rojo) - usado en:
+form eliminar curso
+*/
+
+.btn-mod1 {
+    background-color: #2626ba;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 1rem;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0.1rem #dfd9d9;
+    cursor: pointer;
+
+    &:active {
+        color: white;
+        box-shadow: 0 0.2rem #000;
+        transform: translateY(0.2rem);
+    }
+
+    &:hover:not(:disabled) {
+        background: #203089;
+        color: #fff;
+    }
+}
+
+.btn-mod2 {
+    @extend .btn-mod1;
+    background-color: #ce5c04;
+}
+
+.btn-mod3 {
+    @extend .btn-mod1;
+    background-color: #940000;
+}

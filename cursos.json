@@ -1,7 +1,7 @@
 [{
         "alumnos": [
-            {"nombre":"Gonzalo", "apellido":"Ramos"},
-            {"nombre":"Facundo", "apellido":"Casal"}
+            {"nombre":"George", "apellido":"Russell"},
+            {"nombre":"Charles", "apellido":"Leclerc"}
         ],
         "año": 5,
         "cantidad_alumnos": 1,
@@ -11,7 +11,7 @@
         "turno": "Mañana"
     }, {
         "alumnos": [
-            {"nombre":"Gonzalo", "apellido":"Ramos"}
+            {"nombre":"Lewis", "apellido":"Hamilton"}
         ],
         "año": 6,
         "cantidad_alumnos": 1,
@@ -21,8 +21,8 @@
         "turno": "Noche"
     } , {
         "alumnos": [
-            {"nombre":"Gonzalo", "apellido":"Ramos"},
-            {"nombre":"Facundo", "apellido":"Casal"},
+            {"nombre":"Cristiano", "apellido":"Ronaldo"},
+            {"nombre":"Leonel", "apellido":"Messi"},
             {"nombre":"Yael", "apellido":"Roufe"}
         ],
         "año": 7,

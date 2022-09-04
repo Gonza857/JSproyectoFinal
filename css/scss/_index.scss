@@ -101,6 +101,7 @@ body {
     background-color: #2626ba;
     border: none;
     // padding: .5rem;
+    max-height: 3rem;
     width: 3rem;
     border-radius: 1rem;
     color: rgb(255, 255, 255);
@@ -264,29 +265,7 @@ body {
     display: none;
 }
 
-.btn-mod1 {
-    background-color: #2626ba;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 1rem;
-    color: rgb(255, 255, 255);
-    box-shadow: 0 0.1rem #dfd9d9;
-    cursor: pointer;
 
-    &:active {
-        color: white;
-        box-shadow: 0 0.2rem #000;
-        transform: translateY(0.2rem);
-    }
 
-    &:hover:not(:disabled) {
-        background: #203089;
-        color: #fff;
-    }
-}
 
-.btn-mod2 {
-    @extend .btn-mod1;
-    background-color: #ce5c04;
-}
 
