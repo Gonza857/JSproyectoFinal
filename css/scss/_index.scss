@@ -130,7 +130,16 @@ body {
     color: rgb(255, 255, 255);
     box-shadow: 0 0.1rem #dfd9d9;
     cursor: pointer;
-
+    @media (min-width: 320px) {
+        width: auto;
+        padding: 5px 20px;
+    }
+    @media (min-width: 425px) {
+        padding: 10px 25px;
+    }
+    @media (max-width: 800px) {
+        padding: 5px 15px;
+    }
     &:active {
         color: white;
         box-shadow: 0 0.2rem #000;
@@ -233,22 +242,16 @@ body {
     color: rgb(255, 255, 255);
     box-shadow: 0 0.1rem #dfd9d9;
     cursor: pointer;
-
     @media (min-width: 320px) {
         width: auto;
         padding: 5px 20px;
     }
     @media (min-width: 425px) {
-        width: auto;
         padding: 10px 25px;
     }
-    @media (max-width: 1024px) {
-
+    @media (max-width: 800px) {
+        padding: 5px 15px;
     }
-    @media (min-width: 1200px) {
-
-    }
-
     &:active {
         color: white;
         box-shadow: 0 0.2rem #000;

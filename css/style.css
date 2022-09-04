@@ -169,6 +169,22 @@ body {
   box-shadow: 0 0.1rem #dfd9d9;
   cursor: pointer;
 }
+@media (min-width: 320px) {
+  .btn-mod {
+    width: auto;
+    padding: 5px 20px;
+  }
+}
+@media (min-width: 425px) {
+  .btn-mod {
+    padding: 10px 25px;
+  }
+}
+@media (max-width: 800px) {
+  .btn-mod {
+    padding: 5px 15px;
+  }
+}
 .btn-mod:active {
   color: white;
   box-shadow: 0 0.2rem #000;
@@ -272,8 +288,12 @@ body {
 }
 @media (min-width: 425px) {
   .navBarButtons {
-    width: auto;
     padding: 10px 25px;
+  }
+}
+@media (max-width: 800px) {
+  .navBarButtons {
+    padding: 5px 15px;
   }
 }
 .navBarButtons:active {
