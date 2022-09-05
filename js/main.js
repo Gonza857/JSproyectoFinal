@@ -39,8 +39,8 @@ btnNavBuscarAlumno.onclick = (e) => {
     e.preventDefault();
     tituloColumnaR.textContent = "Cursos añadidos";
     cursosBox.textContent = "";
-    cargarCursosFetch();
     cursosTotales.forEach((curso) => sumarHTML(curso));
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
     crearCursoContainer.style.display = "none";
     preguntarContainer.style.display = "none";
@@ -60,8 +60,8 @@ let btnNavAgregarCursos = document.getElementById("btnNavAgregarCursos");
 btnNavAgregarCursos.onclick = (e) => {
     tituloColumnaR.textContent = "Cursos añadidos";
     cursosBox.textContent = "";
-    cargarCursosFetch();
     cursosTotales.forEach((curso) => sumarHTML(curso));
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     e.preventDefault();
     // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
     crearCursoContainer.style.display = "block";
@@ -84,8 +84,8 @@ btnNavEliminarCursos.onclick = (e) => {
     e.preventDefault();
     tituloColumnaR.textContent = "Cursos añadidos";
     cursosBox.textContent = "";
-    cargarCursosFetch();
     cursosTotales.forEach((curso) => sumarHTML(curso));
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     // FORM BUSCAR ALUMNO
     buscarAlumnoContainer.style.display = "none";
     // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
@@ -106,8 +106,8 @@ btnNavBuscarCurso.onclick = (e) => {
     e.preventDefault();
     cursosBox.textContent = "";
     tituloColumnaR.textContent = "Cursos añadidos";
-    cargarCursosFetch();
     cursosTotales.forEach((curso) => sumarHTML(curso));
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     // FORM BUSCAR ALUMNO
     buscarAlumnoContainer.style.display = "none";
     // FORM AÑADIR CURSO / FORM PREGUNTAR / FORM AGREGAR ALUMNOS
@@ -207,14 +207,47 @@ IMPORTANTE ACLARACION AL PROFESOR/TUTOR: NO ELIMINA LOS CURSOS QUE TRAE EL FETCH
 btnBorrarCurso.onclick = (e) => {
     localStorage.removeItem("cursos");
     e.preventDefault();
-    if (añoBorrar.value != "" || divisionBorrar.value != "") {
+    console.log(añoBorrar.value);
+    console.log(divisionBorrar.value);
+    if (añoBorrar.value != "" && divisionBorrar.value != "") {
+        // BUSCA EN CURSOS TOTALES
         let posicionObjeto = cursosTotales.findIndex((el) => el.año == añoBorrar.value && el.division == divisionBorrar.value);
+        // SINO BUSCA EN CURSOS DEL FETCH
         if (posicionObjeto == -1) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'No existe el curso que queres borrar',
-            });
+            posicionObjeto = fetchCursos.findIndex((el) => el.año == añoBorrar.value && el.division == divisionBorrar.value);
+            if (posicionObjeto == -1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No existe el curso que queres borrar en fetchCursos',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atención!',
+                    text: '¿Estas seguro que deseas borrar el curso? Esta accion no se puede deshacer..',
+                    showDenyButton: true,
+                    confirmButtonText: 'Eliminar',
+                    denyButtonText: `Cancelar`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetchCursos.splice(posicionObjeto, 1);
+                        cursosBox.innerHTML = "";
+                        actualizarLocal();
+                        cursosTotales.forEach((curso) => {
+                            sumarHTML(curso)
+                        })
+                        fetchCursos.forEach((curso) => {
+                            sumarHTML(curso);
+                        });
+                        añoBorrar.value = "";
+                        divisionBorrar.value = "";
+                        Swal.fire('Se eliminó el curso correctamente', '', 'success');
+                    } else if (result.isDenied) {
+                        Swal.fire('El curso no fue eliminado', '', 'info');
+                    };
+                })
+            }
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -227,7 +260,7 @@ btnBorrarCurso.onclick = (e) => {
                 if (result.isConfirmed) {
                     cursosTotales.splice(posicionObjeto, 1);
                     cursosBox.innerHTML = "";
-                    cargarCursosFetch();
+                    fetchCursos.forEach((curso) => sumarHTML(curso));
                     localStorage.removeItem("cursos");
                     cursosTotales.forEach((curso) => {
                         sumarHTML(curso);
@@ -301,7 +334,7 @@ btnAgregarAyC.onclick = () => {
     };
     agregarAyC(alumnosObjeto);
     cursosBox.innerHTML = "";
-    cargarCursosFetch();
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     cursosTotales.forEach((curso) => {
         sumarHTML(curso);
     });
@@ -347,7 +380,7 @@ no.onclick = (e) => {
     crearCursoContainer.style.display = "block";
     cursosTotales.push(cursoCreado);
     cursosBox.textContent = "";
-    cargarCursosFetch();
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     cursosTotales.forEach((curso) => {
         sumarHTML(curso);
     });
@@ -532,14 +565,14 @@ btnBuscarC.onclick = (e) => {
     tituloColumnaR.textContent = "Cursos encontrados";
     buscarCursoAño.value = "";
     buscarCursoDivision.value = "";
-    
+
 };
 // BOTON PARA VOLVER Y MOSTRAR LOS CURSOS DEL ARRAY cursosTotales nuevamente
 let btnVolver = document.getElementById("btnVolver");
 btnVolver.onclick = (e) => {
     e.preventDefault();
     cursosBox.innerHTML = "";
-    cargarCursosFetch();
+    fetchCursos.forEach((curso) => sumarHTML(curso));
     cursosTotales.forEach((curso) => sumarHTML(curso));
     buscarCursoContainer.style.display = "none";
 };
@@ -811,7 +844,11 @@ const sumarHTML = (el) => {
                         el.turno = editarCursoTurnoValue;
                         el.infoFull = `Año: ${el.año}° - Division: ${el.division}° - Turno: ${el.turno}`;
                         textoEditado.textContent = `Estas editando el curso ${el.año}°, division ${el.division}° y turno ${el.turno}`;
-                        cursoInfo.textContent = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+                        if (el.alumnos.length > 0) {
+                            cursoInfo.textContent = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+                        } else {
+                            cursoInfo.textContent = `${el.infoFull} - Alumnos: No hay`;
+                        }
                         actualizarLocal();
                         editarCursoAño.value = "";
                         editarCursoDivision.value = "";
