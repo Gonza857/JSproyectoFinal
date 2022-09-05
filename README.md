@@ -23,6 +23,10 @@
     - Mostrar información de cada curso y alumnos
  - Fetch (promesas)
  - Librerias (para alertas)
+ - Local Storage
+ - Objetos
+ - Arrays
+ - Eventos
 
 # Aclaraciones de funcionamiento
 
@@ -33,7 +37,7 @@
         - Yael Roufe
         - Facundo Casal
         - Gonzalo Ramos 
-    No hay diferencia en usar mayusculas o minusculas porque son automaticamente convertidas.
+    - No hay diferencia en usar mayusculas o minusculas porque son automaticamente convertidas.
 
 # Teconologias utilizadas
 
