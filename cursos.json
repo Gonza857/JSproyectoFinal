@@ -3,8 +3,8 @@
             {"nombre":"George", "apellido":"Russell"},
             {"nombre":"Charles", "apellido":"Leclerc"}
         ],
-        "año": 5,
-        "cantidad_alumnos": 1,
+        "año": "5",
+        "cantidad_alumnos": 2,
         "division": 1,
         "info": "Año 5° - Division 1°",
         "infoFull": "Año: 5° - Division: 1° - Turno: Mañana",
@@ -13,9 +13,9 @@
         "alumnos": [
             {"nombre":"Lewis", "apellido":"Hamilton"}
         ],
-        "año": 6,
+        "año": "6",
         "cantidad_alumnos": 1,
-        "division": 2,
+        "division": "2",
         "info": "Año: 6° - Division: 2°",
         "infoFull": "Año: 6° - Division: 2° - Turno: Noche",
         "turno": "Noche"
@@ -25,9 +25,9 @@
             {"nombre":"Leonel", "apellido":"Messi"},
             {"nombre":"Yael", "apellido":"Roufe"}
         ],
-        "año": 7,
+        "año": "7",
         "cantidad_alumnos": 3,
-        "division": 7,
+        "division": "7",
         "info": "Año: 7° - Division: 7",
         "infoFull": "Año: 7° - Division: 7° - Turno: Tarde",
         "turno": "Tarde"

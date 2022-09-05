@@ -521,16 +521,25 @@ let btnBuscarC = document.getElementById("btnBuscarC");
 btnBuscarC.onclick = (e) => {
     e.preventDefault();
     buscarCursoAñoValue = buscarCursoAño.value;
-    buscarCursoDivision = buscarCursoDivision.value;
-    let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue && curso.division == buscarCursoDivision);
+    buscarCursoDivisionValue = buscarCursoDivision.value;
+    let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
+    console.log(fetchCursos)
+    let cursoBuscadoFetch = fetchCursos.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
+    console.log(cursoBuscadoFetch)
     cursosBox.innerHTML = "";
     cursoBuscado.forEach((curso) => sumarHTML(curso));
+    cursoBuscadoFetch.forEach((curso) => sumarHTML(curso))
     tituloColumnaR.textContent = "Cursos encontrados";
+    buscarCursoAño.value = "";
+    buscarCursoDivision.value = "";
+    
 };
 // BOTON PARA VOLVER Y MOSTRAR LOS CURSOS DEL ARRAY cursosTotales nuevamente
 let btnVolver = document.getElementById("btnVolver");
-btnVolver.onclick = () => {
+btnVolver.onclick = (e) => {
+    e.preventDefault();
     cursosBox.innerHTML = "";
+    cargarCursosFetch();
     cursosTotales.forEach((curso) => sumarHTML(curso));
     buscarCursoContainer.style.display = "none";
 };
@@ -651,6 +660,7 @@ let btnEditarCursoCancelar = document.getElementById("btnEditarCursoCancelar");
 2) COMPARA SI EL CURSO DEL ARRAY TIENE ALUMNOS, SI NO TIENE MUESTRA "NO HAY". SI TIENE MUESTRA LA CANTIDAD Y EL BOTON PARA VERLOS
 3) USA LA INFORMACION DEL CURSO PARA INYECTARLA AL HTML
 */
+
 const sumarHTML = (el) => {
     // DIV CURSO - INFO Y LISTA
     let cursoCreado = document.createElement("div");
