@@ -21,7 +21,8 @@
  - DOM:
     - Modificación de visibilidad de formularios 
     - Mostrar información de cada curso y alumnos
- - Fetch (promesas)
+ - Fetch (relativo)
+ - Promesas
  - Librerias (para alertas)
  - Local Storage
  - Objetos
