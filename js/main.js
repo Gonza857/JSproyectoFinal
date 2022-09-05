@@ -285,7 +285,7 @@ btnAgregarAyC.onclick = () => {
         apellidoAlumno.value = "";
         nombreAlumno.value = "";
     } else {
-        Swal.fire("Faltan datos del alumno")
+        Swal.fire("Faltan datos del alumno");
     }
     agregarAyC(alumnosObjeto);
     cursosBox.innerHTML = "";
@@ -330,7 +330,7 @@ let no = document.getElementById("no");
 // AL NO CARGAR ALUMNOS, SUBE EL CURSO CREADO PERO SIN ALUMNOS
 no.onclick = (e) => {
     e.preventDefault();
-    let cursoCreado = preCargaCurso(); 
+    let cursoCreado = preCargaCurso();
     preguntarContainer.style.display = "none";
     crearCursoContainer.style.display = "block";
     cursosTotales.push(cursoCreado);
@@ -652,11 +652,9 @@ const sumarHTML = (el) => {
     let btnVer;
     let btnCerrar;
     let btnEliminarA;
-
     divInfoBtn.appendChild(cursoInfo)
     divInfoBtn.appendChild(btnEditar);
     cursoCreado.appendChild(divInfoBtn);
-
     if (el.alumnos.length !== 0) {
         // tomamos la propiedad alumnos del objeto curso
         let {
@@ -690,7 +688,6 @@ const sumarHTML = (el) => {
                 cursoInfo.textContent = `${el.infoFull} - Alumnos: ${alumnos.length}`;
                 btnCerrar.style.display = "none";
                 btnVer.style.display = "block"
-                // listaAlumnos.style.display = "none";
                 actualizarLocal();
                 if (el.alumnos.length == 0) {
                     cursoInfo.textContent = `${el.infoFull} - Alumnos: No hay`;
@@ -733,38 +730,80 @@ const sumarHTML = (el) => {
         cursoInfo.textContent = `${el.infoFull} - Alumnos: No hay`;
     }
     cursosBox.appendChild(cursoCreado);
+    /* BOTON PARA EDITAR CURSO
+    1) Esconde el resto de formularios, se muestra y se deja de mostrar haciendo click
+    2) Muestra en un texto que curso estamos modificando
+    3) Configuracion del boton de guardar:
+        1) Toma la informacion de los inputs
+        2) Alerta si esta vacio, que se va a guardar asi como esta. Si acepta se modifica, si cancela, no se modifica.
+        3) Si acepta, modifica los datos y los guarda, actualizando el local storage
+     */
     btnEditar.onclick = (e) => {
         e.preventDefault();
-        buscarCursoContainer.style.display = "none";
+        buscarAlumnoContainer.style.display = "none";
         crearCursoContainer.style.display = "none";
+        preguntarContainer.style.display = "none";
+        agregarAlumnosContainer.style.display = "none";
         eliminarCursoContainer.style.display = "none";
-        if (editarCursoContainer.style.display == "block") {
-            editarCursoContainer.style.display = "none";
-        } else {
+        buscarCursoContainer.style.display = "none";
+        textoEditado.style.display = "block"
+        if (editarCursoContainer.style.display == "none") {
             editarCursoContainer.style.display = "block";
+        } else if (editarCursoContainer.style.display == "block") {
+            editarCursoContainer.style.display = "none";
         }
         textoEditado.textContent = `Estas editando el curso ${el.año}°, division ${el.division}° y turno ${el.turno}`;
-        buscarCursoContainer.classList.add("esconder");
         btnEditarCursoGuardar.onclick = (e) => {
-            e.preventDefault()
+            e.preventDefault();
             let editarCursoAñoValue = editarCursoAño.value;
             let editarCursoDivisionValue = editarCursoDivision.value;
             let editarCursoTurnoValue = editarCursoTurno.value;
-            el.año = editarCursoAñoValue;
-            el.division = editarCursoDivisionValue;
-            el.turno = editarCursoTurnoValue;
-            el.infoFull = `Año: ${el.año}° - Division: ${el.division}° - Turno: ${el.turno}`;
-            cursoInfo.textContent = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
-            actualizarLocal();
-            editarCursoAño.value = "";
-            editarCursoDivision.value = "";
-            editarCursoTurno.value = "";
-            Swal.fire("Editaste el curso correctamente")
+            if (editarCursoAñoValue == "" || editarCursoDivisionValue == "" || editarCursoTurnoValue == "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atención!',
+                    text: 'Si no completas los campos, se guardaran vacios.',
+                    showDenyButton: true,
+                    confirmButtonText: 'Modificar',
+                    denyButtonText: `Cancelar`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire('Se modificaron los datos correctamente', '', 'success');
+                        el.año = editarCursoAñoValue;
+                        el.division = editarCursoDivisionValue;
+                        el.turno = editarCursoTurnoValue;
+                        el.infoFull = `Año: ${el.año}° - Division: ${el.division}° - Turno: ${el.turno}`;
+                        textoEditado.textContent = `Estas editando el curso ${el.año}°, division ${el.division}° y turno ${el.turno}`;
+                        cursoInfo.textContent = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+                        actualizarLocal();
+                        editarCursoAño.value = "";
+                        editarCursoDivision.value = "";
+                        editarCursoTurno.value = "";
+                    } else if (result.isDenied) {
+                        Swal.fire('No se modificó los datos del curso', '', 'info')
+                    }
+                })
+            } else {
+                Swal.fire('Se modificaron los datos correctamente', '', 'success');
+                el.año = editarCursoAñoValue;
+                el.division = editarCursoDivisionValue;
+                el.turno = editarCursoTurnoValue;
+                el.infoFull = `Año: ${el.año}° - Division: ${el.division}° - Turno: ${el.turno}`;
+                textoEditado.textContent = `Estas editando el curso ${el.año}°, division ${el.division}° y turno ${el.turno}`;
+                cursoInfo.textContent = `${el.infoFull} - Alumnos: ${el.alumnos.length}`;
+                actualizarLocal();
+                editarCursoAño.value = "";
+                editarCursoDivision.value = "";
+                editarCursoTurno.value = "";
+            }
         }
     }
+    /* BOTON PARA CANCELAR
+    1) Al clickear, resetea los valores y esconde el formulario
+     */
     btnEditarCursoCancelar.onclick = (e) => {
         e.preventDefault()
-        editarCursoForm.style.display = "none";
+        editarCursoContainer.style.display = "none";
         textoEditado.style.display = "none";
         editarCursoAño.value = "";
         editarCursoDivision.value = "";
@@ -855,8 +894,15 @@ const borrarSesion = () => {
     window.location.reload();
 }
 
+// CONFIGURACION INICIAL
+
+// VERIFICA SI HAY UN USUARIO, SI HAY DEVUELVE TRUE Y SI NO HAY FALSE
 let inicio = localStorage.getItem("inicio") || false;
 
+/* VALIDACION
+1) SI LA SESION ESTA CERRADA O NUNCA SE ENTRO, MUESTRA EL FORMULARIO PARA INICIAR SESION, USANDO LOS DATOS ESTABLECIDOS (3 PERSONAS);
+2) SI LA SESION ESTA ABIERTA (SE CAMBIA CUANDO EL USUARIO LA CIERRA, SI NO CIERRA QUEDA ABIERTA) CARGA LOS DATOS DEL LOCAL, FETCH Y LOS INYECTA AL HTML
+*/
 if (inicio) {
     loginBox.style.display = "flex";
     btnNavCerrarSesion.style.display = "block"

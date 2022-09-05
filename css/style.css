@@ -97,6 +97,9 @@ body {
 #turno,
 #buscarCursoAño,
 #buscarCursoDivision,
+#editarCursoAño,
+#editarCursoDivision,
+#editarCursoTurno,
 .inputStyle {
   border: none;
   border-radius: 15px;
@@ -113,6 +116,9 @@ body {
 #turno:focus,
 #buscarCursoAño:focus,
 #buscarCursoDivision:focus,
+#editarCursoAño:focus,
+#editarCursoDivision:focus,
+#editarCursoTurno:focus,
 .inputStyle:focus {
   outline-color: #323b94;
 }

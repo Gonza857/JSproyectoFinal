@@ -158,24 +158,23 @@
                 <div id="editarCursoContainer">
                     <p id="textoEditado"></p>
                     <form class="text-center d-flex flex-wrap justify-content-between pb-2" id="editarCursoForm">
-                        <div class="col-3">
-                            <label for="año">Año</label>
-                            <input type="text" class="input-group my-1 py-1 px-2 text-center" id="editarCursoAño">
+                        <div class="d-flex justify-content-between">
+                            <div class="col-3">
+                                <label for="año">Año</label>
+                                <input type="text" class="input-group my-1 py-1 px-2 text-center" id="editarCursoAño">
+                            </div>
+                            <div class="col-3">
+                                <label for="division">Division</label>
+                                <input type="text" class="input-group my-1 py-1 px-2 text-center col-4" id="editarCursoDivision">
+                            </div>
+                            <div class="col-5">
+                                <label for="turno">Turno</label>
+                                <input type="text" class="input-group my-1 py-1 px-2 col-4 text-center" id="editarCursoTurno">
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <label for="division">Division</label>
-                            <input type="text" class="input-group my-1 py-1 px-2 text-center col-4"
-                                id="editarCursoDivision">
-                        </div>
-                        <div class="col-5">
-                            <label for="turno">Turno</label>
-                            <input type="text" class="input-group my-1 py-1 px-2 col-4 text-center"
-                                id="editarCursoTurno">
-                        </div>
-                        <div class="row justify-content-center">
-                            <button class="mt-2 col-12 btn-mod" id="btnEditarCursoGuardar">Guardar</button>
-                            <button class="btn bg-primary text-white mt-2 col-5"
-                                id="btnEditarCursoCancelar">Cancelar</button>
+                        <div class="my-3 d-flex justify-content-evenly m-auto">
+                            <button class="btn-mod1 mx-1" id="btnEditarCursoGuardar">Guardar</button>
+                            <button class="btn-mod2 mx-1" id="btnEditarCursoCancelar">Cancelar</button>
                         </div>
                     </form>
                 </div>
