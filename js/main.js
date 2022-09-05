@@ -216,24 +216,36 @@ btnBorrarCurso.onclick = (e) => {
                 text: 'No existe el curso que queres borrar',
             });
         } else {
-            cursosTotales.splice(posicionObjeto, 1);
-            cursosBox.innerHTML = "";
-            cargarCursosFetch();
-            localStorage.removeItem("cursos");
-            cursosTotales.forEach((curso) => {
-                sumarHTML(curso);
-            });
-            localStorage.setItem("cursos", JSON.stringify(cursosTotales));
-            añoBorrar.value = "";
-            divisionBorrar.value = "";
             Swal.fire({
-                icon: "success",
-                text: "¡Se borro correctamente el curso!"
+                icon: 'warning',
+                title: 'Atención!',
+                text: '¿Estas seguro que deseas borrar el curso? Esta accion no se puede deshacer..',
+                showDenyButton: true,
+                confirmButtonText: 'Eliminar',
+                denyButtonText: `Cancelar`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cursosTotales.splice(posicionObjeto, 1);
+                    cursosBox.innerHTML = "";
+                    cargarCursosFetch();
+                    localStorage.removeItem("cursos");
+                    cursosTotales.forEach((curso) => {
+                        sumarHTML(curso);
+                    });
+                    localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+                    añoBorrar.value = "";
+                    divisionBorrar.value = "";
+                    Swal.fire('Se eliminó el curso correctamente', '', 'success');
+                } else if (result.isDenied) {
+                    Swal.fire('El curso no fue eliminado', '', 'info');
+                };
             });
         };
     } else {
         Swal.fire("Faltan datos");
     };
+
+
 }
 
 // -------- FORMULARIO PARA AGREGAR ALUMNOS --------
@@ -383,7 +395,7 @@ btnBuscarA.onclick = (e) => {
     let buscarAlumnoNombreValue = buscarAlumnoNombre.value.toLowerCase();
     let buscarAlumnoApellidoValue = buscarAlumnoApellido.value.toLowerCase();
     let resultado = [];
-    
+
     if (buscarAlumnoApellidoValue != "" && buscarAlumnoNombreValue == "") {
         cursosBox.innerHTML = "";
         cursosTotales.forEach((curso) => {
