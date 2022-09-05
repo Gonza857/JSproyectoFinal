@@ -207,8 +207,6 @@ IMPORTANTE ACLARACION AL PROFESOR/TUTOR: NO ELIMINA LOS CURSOS QUE TRAE EL FETCH
 btnBorrarCurso.onclick = (e) => {
     localStorage.removeItem("cursos");
     e.preventDefault();
-    console.log(añoBorrar.value);
-    console.log(divisionBorrar.value);
     if (añoBorrar.value != "" && divisionBorrar.value != "") {
         // BUSCA EN CURSOS TOTALES
         let posicionObjeto = cursosTotales.findIndex((el) => el.año == añoBorrar.value && el.division == divisionBorrar.value);
@@ -450,7 +448,6 @@ btnBuscarA.onclick = (e) => {
             };
         })
         resultado.forEach((cursoEncontrado) => sumarHTML(cursoEncontrado));
-        console.log(resultado);
         if (resultado.length == 0) {
             Swal.fire({
                 icon: 'error',
@@ -480,7 +477,6 @@ btnBuscarA.onclick = (e) => {
             };
         });
         resultado.forEach((cursoEncontrado) => sumarHTML(cursoEncontrado));
-        console.log(resultado);
         if (resultado.length == 0) {
             Swal.fire({
                 icon: 'error',
@@ -556,9 +552,7 @@ btnBuscarC.onclick = (e) => {
     buscarCursoAñoValue = buscarCursoAño.value;
     buscarCursoDivisionValue = buscarCursoDivision.value;
     let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
-    console.log(fetchCursos)
     let cursoBuscadoFetch = fetchCursos.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
-    console.log(cursoBuscadoFetch)
     cursosBox.innerHTML = "";
     cursoBuscado.forEach((curso) => sumarHTML(curso));
     cursoBuscadoFetch.forEach((curso) => sumarHTML(curso))
