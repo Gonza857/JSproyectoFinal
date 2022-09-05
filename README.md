@@ -46,7 +46,7 @@
 - HTML
 - CSS
 - SASS
-- Github
+- Git & Github
 
 ## Autor
 - Gonzalo Ramos
