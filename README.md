@@ -28,7 +28,7 @@
 
 - Los cursos traidos por el fetch, pueden ser editados, tanto la información como los alumnos. Pero se aclara que no se guardan estos cambios. Entonces al recargar la página no veremos aplicados dichos cambios.
 - Los cursos que son creados por el usuario en el sistema, si son editables y modificables sus alumnos. Estos cambios SI se guardan en el sistema usando el Local Storage.
-    # Importante:
+    # - Importante:
     - Se accede con nombre y apellido:
         - Yael Roufe
         - Facundo Casal
