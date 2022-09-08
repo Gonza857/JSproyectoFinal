@@ -205,7 +205,6 @@ let btnBorrarCurso = document.getElementById("btnBorrarCurso");
 IMPORTANTE ACLARACION AL PROFESOR/TUTOR: NO ELIMINA LOS CURSOS QUE TRAE EL FETCH, SOLO ELIMINA LOS QUE CREAMOS NOSOTROS USANDO LA APP.
 */
 btnBorrarCurso.onclick = (e) => {
-    localStorage.removeItem("cursos");
     e.preventDefault();
     if (añoBorrar.value != "" && divisionBorrar.value != "") {
         // BUSCA EN CURSOS TOTALES
@@ -217,7 +216,7 @@ btnBorrarCurso.onclick = (e) => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'No existe el curso que queres borrar en fetchCursos',
+                    text: 'No existe el curso que queres borrar',
                 });
             } else {
                 Swal.fire({
@@ -259,11 +258,10 @@ btnBorrarCurso.onclick = (e) => {
                     cursosTotales.splice(posicionObjeto, 1);
                     cursosBox.innerHTML = "";
                     fetchCursos.forEach((curso) => sumarHTML(curso));
-                    localStorage.removeItem("cursos");
                     cursosTotales.forEach((curso) => {
                         sumarHTML(curso);
                     });
-                    localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+                    actualizarLocal();
                     añoBorrar.value = "";
                     divisionBorrar.value = "";
                     Swal.fire('Se eliminó el curso correctamente', '', 'success');
@@ -275,8 +273,8 @@ btnBorrarCurso.onclick = (e) => {
     } else {
         Swal.fire("Faltan datos");
     };
-
-
+    añoBorrar.value = "";
+    divisionBorrar.value = "";
 }
 
 // -------- FORMULARIO PARA AGREGAR ALUMNOS --------
@@ -382,7 +380,11 @@ no.onclick = (e) => {
     cursosTotales.forEach((curso) => {
         sumarHTML(curso);
     });
-    localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+    actualizarLocal();
+    Swal.fire({
+        icon: "success",
+        text: "¡Se agregó correctamente el curso!"
+    });
 };
 
 // -------- FORMULARIO PARA INICIAR SESION --------
@@ -892,11 +894,10 @@ const agregarAyC = (alumnosObjeto) => {
             alumnos.push(alumno);
         });
         cursosTotales.push(cursoNew);
-        localStorage.removeItem("cursos");
         cursosTotales.forEach((curso) => {
             sumarHTML(curso);
         });
-        localStorage.setItem("cursos", JSON.stringify(cursosTotales));
+        actualizarLocal()
         alumnosObjeto = [];
     };
 };
