@@ -44,6 +44,7 @@
 # Teconologias utilizadas
 
 - Javascript
+- Librerias: SweetAlert2
 - HTML
 - CSS
 - SASS
