@@ -1,16 +1,3 @@
-// VARIABLES CON VALOR
-let registrados = [{
-        nombre: "facundo",
-        apellido: "casal"
-    },
-    {
-        nombre: "yael",
-        apellido: "roufe"
-    }, {
-        nombre: "gonzalo",
-        apellido: "ramos"
-    }
-];
 
 // VARIABLES SIN VALOR DEFINIDO
 let arrayAlumnos;
@@ -21,6 +8,8 @@ let apellidoAlumnoValue;
 let alumnosObjeto = [];
 let cursosTotales = [];
 let fetchCursos = [];
+let registrados = [];
+
 
 // --------------------------------
 
@@ -555,6 +544,13 @@ btnBuscarC.onclick = (e) => {
     buscarCursoDivisionValue = buscarCursoDivision.value;
     let cursoBuscado = cursosTotales.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
     let cursoBuscadoFetch = fetchCursos.filter((curso) => curso.año == buscarCursoAñoValue || curso.division == buscarCursoDivisionValue);
+    if (cursoBuscadoFetch.length == 0 && cursoBuscado.length == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se encontró un cursos con los datos indicados',
+        });
+    }
     cursosBox.innerHTML = "";
     cursoBuscado.forEach((curso) => sumarHTML(curso));
     cursoBuscadoFetch.forEach((curso) => sumarHTML(curso))
@@ -963,10 +959,34 @@ const borrarSesion = () => {
     window.location.reload();
 };
 
+// TRAEMOS LOS USUARIOS REGISTRADOS
+const registradosFetch = async () => {
+    try {
+        let response = await fetch("./registrados.json");
+        let result = await response.json();
+        result.forEach((registrado) => {
+            registrados.push(registrado);
+        })
+    }
+    catch {
+        console.log(error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al cargar los datos. Intenta recargar la pagina o revisa tu conexión a internet',
+        });
+    }
+}
+
 // CONFIGURACION INICIAL
 
 // VERIFICA SI HAY UN USUARIO, SI HAY DEVUELVE TRUE Y SI NO HAY FALSE
 let inicio = localStorage.getItem("inicio") || false;
+
+
+// TRAEMOS LOS REGISTRADOS CON FETCH
+registradosFetch();
+
 
 /* VALIDACION
 1) SI LA SESION ESTA CERRADA O NUNCA SE ENTRO, MUESTRA EL FORMULARIO PARA INICIAR SESION, USANDO LOS DATOS ESTABLECIDOS (3 PERSONAS);
@@ -988,3 +1008,6 @@ if (inicio) {
     btnNavIniciarSesion.style.display = "block";
     btnNavCerrarSesion.style.display = "none";
 };
+
+
+
