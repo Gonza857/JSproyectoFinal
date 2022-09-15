@@ -29,10 +29,11 @@
  - Arrays
  - Eventos
 
-# Aclaraciones de funcionamiento
+# Aclaraciones de funcionamiento ⚠️
 
 - Los cursos traidos por el fetch, pueden ser editados, tanto la información como los alumnos. Pero se aclara que no se guardan estos cambios. Entonces al recargar la página no veremos aplicados dichos cambios. Tampoco pueden ser eliminados, ya que el JSON al cual hacemos fetch no puede ser modificado. La idea es que trabajando con bases de datos enviemos la información actualizada con el metodo POST, pero al no tener una base de datos, simulamos que editamos los cambios.
 - Los cursos que SI son creados por el usuario en el sistema, si son editables y modificables sus alumnos. Estos cambios SI se guardan en el sistema usando el Local Storage ya sea al agregar o eliminar cursos o editar datos del curso o sus alumnos.
+- Entonces para cerrar las aclaraciones, la idea seria interactuar con una base de datos pero al no tenerla trabajamos con lo que tenemos y podemos simular el funcionamiento principal, no es porque el sistema funciona mal, sino que intentamos trabajar en base a las herramientas que tenemos.
     # - Importante:
     - Se accede con nombre y apellido:
         - Yael Roufe
@@ -43,6 +44,7 @@
 # Teconologias utilizadas
 
 - Javascript
+- Librerias: SweetAlert2
 - HTML
 - CSS
 - SASS
